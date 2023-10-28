@@ -1,5 +1,4 @@
 from chapps.templates import template
-from chapps.state import FormState
 from chapps.state import State
 
 import reflex as rx
