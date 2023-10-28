@@ -1,6 +1,5 @@
 from chapps.templates import template
-from chapps.state import State
-
+from chapps.state import ExploreState
 import reflex as rx
 
 @template(route="/exploreChapps", title="exploreChapps")
