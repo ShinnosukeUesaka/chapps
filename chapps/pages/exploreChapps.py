@@ -12,7 +12,10 @@ def exploreChapps() -> rx.Component:
                 id="tool_description",
                 on_change=ExploreState.set_search_query
             ),
-            rx.button("Submit", type_="submit", padding ="5"),
+            rx.button(
+                "Submit", type_="submit", padding ="5",
+                on_click=ExploreState.search_chaps(ExploreState.search_query)
+            ),
         ),
         #rx.box(rx.foreach(State.chats[State.current_chat], "ji")),
         py="8",
