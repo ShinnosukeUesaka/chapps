@@ -1,5 +1,6 @@
 from chapps.templates import template
 from chapps.state import FormState
+from chapps.state import State
 
 import reflex as rx
 
@@ -17,7 +18,7 @@ def exploreChapps() -> rx.Component:
             ),
             on_submit=FormState.handle_submit,
         ),
-        rx.box(rx.foreach(State.chats[State.current_chat], message)),
+        rx.box(rx.foreach(State.chats[State.current_chat], "ji")),
         py="8",
         flex="1",
         width="100%",
