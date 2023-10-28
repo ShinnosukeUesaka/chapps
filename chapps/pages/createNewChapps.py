@@ -16,7 +16,7 @@ def createNewChapps() -> rx.Component:
         rx.vstack(
             rx.input(
                 placeholder="Tool Description",
-                on_click=CreateNewState.set_description_of_chapp(),
+                on_click=CreateNewState.set_description_of_chapp,
                 id="tool_description",
             ),
             rx.button("Submit", type_="submit"),
