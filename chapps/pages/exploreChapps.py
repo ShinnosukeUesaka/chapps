@@ -1,5 +1,5 @@
 from chapps.templates import template
-from chapps.state import FormState
+from chapps.state import ExploreState
 from chapps.state import State
 
 import reflex as rx
@@ -8,17 +8,15 @@ import reflex as rx
 def exploreChapps() -> rx.Component:
     return rx.vstack(
         rx.heading("search tools", font_size="2em", padding ="5"),
-        rx.form(
-            rx.vstack(
-                rx.input(
-                    placeholder="Tool Description",
-                    id="tool_description",
-                ),
-                rx.button("Submit", type_="submit", padding ="5"),
+        rx.vstack(
+            rx.input(
+                placeholder="Tool Description",
+                id="tool_description",
+                on_click=ExploreState.set_search_query()
             ),
-            on_submit=FormState.handle_submit,
+            rx.button("Submit", type_="submit", padding ="5"),
         ),
-        rx.box(rx.foreach(State.chats[State.current_chat], "ji")),
+        #rx.box(rx.foreach(State.chats[State.current_chat], "ji")),
         py="8",
         flex="1",
         width="100%",
