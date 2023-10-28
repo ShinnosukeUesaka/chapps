@@ -44,7 +44,7 @@ class HomeState(State):
         pass
 
 class RunChappState(State):
-    chapp: Chapp
+    chapp: Chapp = None
     inputs: list[str]
     output: str
     status: str # waiting_for_user_response, running, finished
@@ -53,14 +53,14 @@ class RunChappState(State):
         pass
 
 class CreateNewState(State):
-    description_of_chapp: str
+    description_of_chapp: str = None
 
 class ExploreState(State):
-    search_query: str
-    search_results: list[Chapp]
+    search_query: str = None
+    search_results: list[Chapp] = []
 
     def search_chaps(self, serach_query):
         pass
 
 class ConfigState(State):
-    chapp: Chapp
+    chapp: Chapp = None

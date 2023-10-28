@@ -10,7 +10,7 @@ def exploreChapps() -> rx.Component:
             rx.input(
                 placeholder="Tool Description",
                 id="tool_description",
-                on_click=ExploreState.set_search_query()
+                on_change=ExploreState.set_search_query
             ),
             rx.button("Submit", type_="submit", padding ="5"),
         ),
