@@ -1,5 +1,7 @@
 """Base state for the app."""
 import reflex as rx
+from chapps import firebase_utils
+
 
 class User(rx.Base):
     id: int
@@ -24,15 +26,19 @@ class State(rx.State):
 
     The base state is used to store general vars used throughout the app.
     """
-    user: User
+    user: User = None
     logged_in: bool = False
 
     def create_user_or_login(self, name):
+        user_data = firebase_utils.add_or_get_user(name)
+        self.user.id = user_data['id']
+        self.user.name = user_data['name']
+
         self.logged_in = True
         pass
 
 class HomeState(State):
-    my_chapps = list[Chapp]
+    my_chapps: list[Chapp]
 
     def get_chaps(self):
         pass
@@ -46,8 +52,12 @@ class RunChappState(State):
     def run_chapp(self):
         pass
 
+class CreateNewState(State):
+    description_of_chapp: str
+
 class ExploreState(State):
-    search_results = list[Chapp]
+    search_query: str
+    search_results: list[Chapp]
 
     def search_chaps(self, serach_query):
         pass

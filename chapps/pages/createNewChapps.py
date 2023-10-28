@@ -1,5 +1,5 @@
 from chapps.templates import template
-from chapps.state import FormState
+from chapps.state import CreateNewState
 
 import reflex as rx
 
@@ -13,17 +13,15 @@ def createNewChapps() -> rx.Component:
     """
     return rx.vstack(
         rx.heading("What do tools do you want to create", font_size="3em", padding ="5"),
-        rx.form(
-            rx.vstack(
-                rx.input(
-                    placeholder="Tool Description",
-                    id="tool_description",
-                ),
-                rx.button("Submit", type_="submit"),
+        rx.vstack(
+            rx.input(
+                placeholder="Tool Description",
+                on_click=CreateNewState.set_description_of_chapp(),
+                id="tool_description",
             ),
-            on_submit=FormState.handle_submit,
+            rx.button("Submit", type_="submit"),
         ),
         rx.divider(),
         rx.heading("Results"),
-        rx.text(FormState.form_data.to_string()),
+        rx.text(CreateNewState.description_of_chapp),
     )
