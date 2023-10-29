@@ -132,3 +132,5 @@ var/
 venv.bak/
 venv/
 wheels/
+firebase_auth.json
+.DS_Store
