@@ -43,7 +43,20 @@ base_style = {
         **overlapping_button_style,
     },
     rx.MenuItem: hover_accent_bg,
-      
+    "font-family": "Nunito",
+    "font-size": "22px",
+    "font-weight": "600",
+    "line-height": "30px",
+    "color": "#00000099",
+    rx.Heading: {
+        "font_family": "Montserrat",
+        "font_size": "40px",
+        "font_weight": "600",
+        "line_height": "102px",
+        "letter_spacing": "0em",
+        "text_align": "left",
+        "color": "black"
+    }
 }
 
 markdown_style = {
@@ -91,4 +104,12 @@ card_style = {
     "border-radius": "30px",
     "background": "#E1E8F0",
     "box-shadow": "-4px -4px 8px 4px #FFF, 4px 4px 8px 4px #D9D9D9"
+}
+
+button_style = {
+    "height": "2.5625rem",
+    "flex-shrink": "0",
+    "text_color" : "white",
+    "border-radius": "2.5rem",
+    "background": "linear-gradient(93deg, #0068AB 5.3%, #00BDD3 70.88%, #4AF1FD 136.46%)",
 }

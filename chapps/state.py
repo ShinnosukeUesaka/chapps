@@ -177,7 +177,7 @@ def create_chapp(description: str, user_id: str) -> Chapp:
 Your job is to create a Chapp based on the prompt below. Chapp is a tool or an app that runs on GPT-4.
 
 Give me the all the variables neccesary to define the chapp.
-A chapp has a title, description, short description inputs variables(all lowercase and use underscore for multiple words), instruction(prompt for gpt-4), example pair of inputs and outputs. All the input variables are string.
+A chapp has a title, description, short description inputs variables(all lowercase and use underscore for multiple words), instruction(prompt for gpt-4), example pair of inputs and outputs (must be markdown). All the input variables are string.
 The output must strictly follow the example yaml format below, as it would be parsed programatically.
 
 
