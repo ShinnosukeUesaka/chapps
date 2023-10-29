@@ -2,18 +2,22 @@
 
 from chapps import styles
 from chapps.templates import template
-from chapps.state import State
+from chapps.state import State, HomeState
 
 import reflex as rx
 
 
-@template(route="/", title="Home", image="/github.svg", on_load=State.check_logged_in)
+@rx.page(route="/", title="Home", image="/github.svg", on_load=State.check_logged_in)
 def index() -> rx.Component:
     """The home page.
 
     Returns:
         The UI for the home page.
     """
-    with open("README.md", encoding="utf-8") as readme:
-        content = readme.read()
-    return rx.markdown(content, component_map=styles.markdown_style)
+    return rx.hstack(
+        rx.link(rx.text("Explore"), href="/explore"),
+        main_content(),
+        rx.link(rx.text("CreateNew"), href="/create"),
+    )
+def main_content():
+    return rx.text("Place holder")
