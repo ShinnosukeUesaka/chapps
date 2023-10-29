@@ -36,6 +36,8 @@ overlapping_button_style = {
     "border_radius": border_radius,
 }
 
+input_field_box_shadow = "4px 4px 8px 4px #FFFFFF, -4px -4px 8px 4px #C8CED6"
+
 base_style = {
     rx.MenuButton: {
         "width": "3em",

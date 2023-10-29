@@ -30,6 +30,8 @@ class Chapp(rx.Base):
     inputs: list[Input]
     examples: list[Example]
     instruction: str
+    rag: bool = False
+    pdf_path: Optional[str] = None # for rag
 
 
 class State(rx.State):
@@ -72,7 +74,7 @@ class HomeState(State):
 class RunChappState(State):
     chapp: Chapp = None
     inputs: dict[str, str] = {}
-    output: str
+    output: str = "Your result will appear here"
     status: str
 
     def get_chapp(self):
@@ -173,13 +175,11 @@ class ExploreState(State):
 
 
 def create_chapp(description: str, user_id: str) -> Chapp:
-    prompt = """
-Your job is to create a Chapp based on the prompt below. Chapp is a tool or an app that runs on GPT-4.
+    prompt = """Your job is to create a Chapp based on the prompt below. Chapp is a tool or an app that runs on GPT-4.
 
 Give me the all the variables neccesary to define the chapp.
 A chapp has a title, description, short description inputs variables(all lowercase and use underscore for multiple words), instruction(prompt for gpt-4), example pair of inputs and outputs (must be markdown). All the input variables are string.
-The output must strictly follow the example yaml format below, as it would be parsed programatically.
-
+Strictly follow the example yaml format below, as it would be parsed programatically.
 
 Example Input
 I want a tool that gives me a definition of a word, and three example sentences based on a context provided.
@@ -211,8 +211,7 @@ example:
     ## Example Sentences:
     1. Many students tend to procrastinate when it comes to studying for exams, often leading to stress and poor performance.
     2. In school, procrastinating on assignments can result in late submissions and penalties.
-    3. Despite knowing the importance of timely work, John often found himself procrastinating on his school projects.
-"""
+    3. Despite knowing the importance of timely work, John often found himself procrastinating on his school projects."""
 
     def parsing_function(yaml_str: str) -> Chapp:
         chapp_data = yaml.safe_load(yaml_str)

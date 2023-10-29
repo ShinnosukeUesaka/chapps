@@ -61,11 +61,11 @@ def create_new_chapp_sidebar():
             ),
             rx.button("Submit", type_="confirm", on_click=ConfigChappState.create_chapp(), style = submit_style),
         ),
-            
-    )
-    
 
-    
+    )
+
+
+
 
 def explore_page():
     return rx.vstack(
