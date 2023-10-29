@@ -2,11 +2,12 @@
 
 from chapps import styles
 from chapps.templates import template
+from chapps.state import State
 
 import reflex as rx
 
 
-@template(route="/", title="Home", image="/github.svg")
+@template(route="/", title="Home", image="/github.svg", on_load=State.check_logged_in)
 def index() -> rx.Component:
     """The home page.
 

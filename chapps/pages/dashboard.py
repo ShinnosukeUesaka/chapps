@@ -2,9 +2,10 @@
 from chapps.templates import template
 
 import reflex as rx
+from chapps.state import State
 
 
-@template(route="/dashboard", title="Dashboard")
+@template(route="/dashboard", title="Dashboard", on_load=State.check_logged_in)
 def dashboard() -> rx.Component:
     """The dashboard page.
 

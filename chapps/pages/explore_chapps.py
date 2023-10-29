@@ -1,5 +1,5 @@
 from chapps.templates import template
-from chapps.state import ExploreState
+from chapps.state import ExploreState, State
 from chapps.state import Chapp
 
 import reflex as rx
@@ -7,7 +7,7 @@ import reflex as rx
 def display_chapp(chapp: Chapp):
     return rx.box(rx.text(chapp.title))
 
-@template(route="/exploreChapps", title="exploreChapps")
+@template(route="/exploreChapps", title="exploreChapps", on_load=State.check_logged_in)
 def exploreChapps() -> rx.Component:
     return rx.vstack(
         rx.heading("search tools", font_size="2em", padding ="5"),

@@ -5,6 +5,7 @@ import yaml
 from chapps.openai_utils import create_chat_and_parse, GPTConfig, create_chat
 from chapps.firebase_utils import db
 import uuid
+from typing import Optional
 
 class User(rx.Base):
     id: str
@@ -15,15 +16,18 @@ class Example(rx.Base):
     inputs: dict[str, str]
     output: str
 
+class Input(rx.Base):
+    name: str
+    description: str
 
 class Chapp(rx.Base):
     id: str
-    user: User
+    user: str
     title: str
     short_description: str
     description: str
     icon_url: str = None
-    inputs: list[str]
+    inputs: list[Input]
     examples: list[Example]
     instruction: str
 
@@ -37,6 +41,11 @@ class State(rx.State):
 
     user: User = User(id="", name="")
     logged_in: bool = False
+
+    def check_logged_in(self):
+        if not self.logged_in:
+            return rx.redirect("/login")
+
 
     def set_username(self, username):
         self.user.name = username
@@ -65,13 +74,19 @@ class RunChappState(State):
     def run_chapp(self):
         self.output = call_chap(self.chapp, self.inputs)
 
-class CreateNewState(State):
+
+class ConfigChappState(State):
+    unsaved_chapp: Optional[Chapp] = None
+    generating_chapp: bool = False
     description_of_chapp: str = None
-    chapp: Chapp = None
 
     def create_chapp(self):
+        self.generating_chapp = True
+        yield
         chapp = create_chapp(self.description_of_chapp, self.user.id)
-        self.chapp = chapp
+        self.unsaved_chapp = chapp
+        self.generating_chapp = False
+        return rx.redirect("/chappConfig")
 
     def edit_title(self, text):
         self.chapp.title = text
@@ -132,15 +147,15 @@ description: |-
    This Chapp provides you the definition of a specific word and constructs three sentences using that word, based around a specific context provided by the user. It's a tool that can be handy for learning new words, enhancing your vocabulary, and understanding the usage of a word in a context effectively.
 
 inputs:
-  - id: word
+  - name: word
     description: Enter the word you want to learn about and see used in sentences.
-  - id: context
+  - name: context
     description: Specify the context or theme within which you want to see the word used.
 instruction: |-
   For the word "{word}", first provide a clear and concise definition. Then, based on the context of "{context}", create three unique sentences that correctly use and demonstrate the meaning of the word.
 
 example:
-  input:
+  inputs:
     word: procrastinate
     context: school
   output: |-
@@ -154,9 +169,11 @@ example:
 
     def parsing_function(yaml_str: str) -> Chapp:
         chapp_data = yaml.safe_load(yaml_str)
+        print(chapp_data)
         uid = uuid.uuid4().hex
-        chapp["id"] = uid
-        chapp["user"] = user_id
+        chapp_data["examples"] = [chapp_data["example"]]
+        chapp_data["id"] = uid
+        chapp_data["user"] = user_id
         return Chapp(**chapp_data)
 
     messages = [

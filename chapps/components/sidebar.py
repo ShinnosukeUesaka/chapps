@@ -122,6 +122,7 @@ def sidebar() -> rx.Component:
     return rx.box(
         rx.vstack(
             sidebar_header(),
+            rx.text(State.user.name),
             rx.vstack(
                 *[
                     sidebar_item(

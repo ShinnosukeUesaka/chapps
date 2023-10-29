@@ -44,7 +44,8 @@ def generate_and_parse(gpt_function: Callable[[GPTConfig], str], parsing_functio
         try:
             parsed_output = parsing_function(output)
             break
-        except:
+        except Exception as e:
+            print(e)
             if gpt_config.temperature < 0.3:
                 gpt_config.temperature += 0.1
             pass

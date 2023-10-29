@@ -13,5 +13,4 @@ def login():
             rx.button("Login", type_="confirm", on_click=State.create_user_or_login),
             href='/',
         )
-
     )
