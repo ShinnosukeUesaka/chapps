@@ -1,5 +1,5 @@
 import reflex as rx
-from chapps.state import State, RunChappState
+from chapps.state import State, RunChappState, ConfigChappState
 
 @rx.page(route="/chapp/[chapp_id]", title="Chapp", on_load=RunChappState.get_chapp)
 def chapp_screen() -> rx.Component:
@@ -9,7 +9,8 @@ def chapp_screen() -> rx.Component:
         rx.foreach(RunChappState.chapp.inputs, input_field),
         rx.button("Run", type_="confirm", on_click=RunChappState.run_chapp()),
         rx.heading("Output:"),
-        rx.text(RunChappState.output)
+        rx.text(RunChappState.output),
+        rx.button("Edit", type_="confirm", on_click=ConfigChappState.edit_chapp(RunChappState.chapp.id)),
     )
 
 def input_field(input):
