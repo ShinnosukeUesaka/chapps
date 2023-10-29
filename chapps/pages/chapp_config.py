@@ -17,7 +17,7 @@ def configuration():
                 on_change=lambda value:ConfigChappState.edit_short_description(value),
                 id="tool_description",
             ),
-            rx.button("Confirm", type_="confirm"),
+            rx.button("Confirm", type_="confirm", on_click=ConfigChappState.save_chapp()),
             rx.text(ConfigChappState.unsaved_chapp.short_description),
         ),
         rx.divider(),
