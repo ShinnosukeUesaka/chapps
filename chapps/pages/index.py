@@ -21,7 +21,7 @@ def index() -> rx.Component:
         rx.box(
             rx.progress(is_indeterminate=True, width="100%", position='absolute', z_value=1),
             rx.image(src='/loading_page_bg.png', width='auto', height='1080', z_value=0),
-        background_color = '#EAF0F3',
+            background_color = '#EAF0F3',
         ),
         main_screen(),
     )
@@ -40,7 +40,8 @@ def main_screen():
                 explore_page(), library_page(),
             ),
             width="65%",
-            margin_top= "3em"
+            height="100vh",
+            margin_top= "2em"
         ),
 
         rx.button(
@@ -48,15 +49,15 @@ def main_screen():
             on_click=rx.toggle_color_mode,
         ),
         rx.vstack(
-            rx.spacer(),
             rx.image(
                 src="/logo.svg", width="100px", height="auto"
             ),
             create_new_chapp_sidebar(),
             width="35%",
-            margin_top= "5em",
-            margin_right = "5em"
+            box_shadow = "-4px 4px 15px 8px #C9D3DF"
+
         ),
+        bg_color = "#E1E8F0"
 
     )
 
@@ -69,7 +70,9 @@ def create_new_chapp_sidebar():
                 on_change=ConfigChappState.set_description_of_chapp,
                 id="tool_description",
                 style = inp_style,
-                padding = "3",
+                right_padding = "3px",
+                left_padding = "3px",
+
             ),
             rx.button("Submit", type_="confirm", on_click=ConfigChappState.create_chapp(), style = submit_style),
         ),
@@ -89,7 +92,7 @@ def explore_page():
             style = text_field,
         ),
         rx.button(
-            "Submit", type_="submit", padding ="5",
+            "Submit", type_="submit", padding ="5px",
             on_click=ExploreState.search_chaps
         ),
         chapp_grid(ExploreState.search_results),
@@ -105,15 +108,11 @@ def chapp_card(chapp: Chapp):
     return rx.box(
         rx.center(
             rx.vstack(
+                rx.image(src="/github.svg", width="auto", height="100px"),
                 rx.link(
-                    rx.text(chapp.title, font_size="16px"),
+                    rx.text(chapp.title, font_size="16px", padding ="5px"),
                     href=f"/chapp/{chapp.id}",
-                    padding_left="20px",
-                    padding_right="20px",
-
                 ),
-                rx.text(chapp.short_description, font_size="1em"),
-                padding="20px",
             )
         ),
         height="8em", width="10em", bg="#EAF0F3",style = card_style,
