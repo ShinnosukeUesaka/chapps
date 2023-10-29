@@ -1,0 +1,102 @@
+2023-10-29 00:41:34.397348 PDT | rxh-prod-chapps-lime-moon | None |  Debug: [Reflex 0.3.1 with Python 3.11.6 (PATH:
+2023-10-29 00:41:34.397355 PDT | rxh-prod-chapps-lime-moon | None |  /home/reflexuser/venv/bin/python)]
+2023-10-29 00:41:34.398101 PDT | rxh-prod-chapps-lime-moon | None |  Debug: [Node None (Expected: 18.17.0) (PATH:None)]
+2023-10-29 00:41:34.398816 PDT | rxh-prod-chapps-lime-moon | None |  Debug: [FNM None (Expected: 1.35.1) (PATH:
+2023-10-29 00:41:34.398820 PDT | rxh-prod-chapps-lime-moon | None |  /home/reflexuser/.local/share/reflex/fnm/fnm)]
+2023-10-29 00:41:34.399524 PDT | rxh-prod-chapps-lime-moon | None |  Debug: [Bun None (Expected: 1.0.4) (PATH:
+2023-10-29 00:41:34.399528 PDT | rxh-prod-chapps-lime-moon | None |  /home/reflexuser/.local/share/reflex/bun/bin/bun)]
+2023-10-29 00:41:34.400096 PDT | rxh-prod-chapps-lime-moon | None |  Debug: [OS Linux Debian GNU/Linux 12 (bookworm)]
+2023-10-29 00:41:34.400700 PDT | rxh-prod-chapps-lime-moon | None |  Debug: Using package installer at:
+2023-10-29 00:41:34.400703 PDT | rxh-prod-chapps-lime-moon | None |  /home/reflexuser/.local/share/reflex/bun/bin/bun
+2023-10-29 00:41:34.401236 PDT | rxh-prod-chapps-lime-moon | None |  Debug: Using package executer at: None
+2023-10-29 00:41:34.401724 PDT | rxh-prod-chapps-lime-moon | None |  Debug: Unzip path: None
+2023-10-29 00:41:34.413756 PDT | rxh-prod-chapps-lime-moon | None |  Info: Overriding config value redis_url with env var REDIS_URL=localhost:6379
+2023-10-29 00:41:34.414330 PDT | rxh-prod-chapps-lime-moon | None |  Info: Overriding config value telemetry_enabled with env var TELEMETRY_ENABLED=0
+2023-10-29 00:41:34.415099 PDT | rxh-prod-chapps-lime-moon | None |  ───────────────────────────── Starting Reflex App ──────────────────────────────
+2023-10-29 00:41:34.415977 PDT | rxh-prod-chapps-lime-moon | None |  Info: Using redis at localhost:6379
+2023-10-29 00:41:34.417046 PDT | rxh-prod-chapps-lime-moon | None |  Warning: The path to the Node binary could not be found. Please ensure that Node
+2023-10-29 00:41:34.417049 PDT | rxh-prod-chapps-lime-moon | None |  is properly installed and added to your system's PATH environment variable.
+2023-10-29 00:41:34.418292 PDT | rxh-prod-chapps-lime-moon | None |  Debug: Running command: ['gunicorn', '--worker-class',
+2023-10-29 00:41:34.418295 PDT | rxh-prod-chapps-lime-moon | None |  'uvicorn.workers.UvicornH11Worker', '--preload', '--timeout', '120',
+2023-10-29 00:41:34.418296 PDT | rxh-prod-chapps-lime-moon | None |  '--log-level', 'critical', '--bind', '0.0.0.0:8000', '--threads', '3',
+2023-10-29 00:41:34.418297 PDT | rxh-prod-chapps-lime-moon | None |  'chapps.chapps:app()', '--log-level', 'error', '--workers', '3']
+2023-10-29 00:41:34.503249 PDT | rxh-prod-chapps-lime-moon | None | instance refused connection. is your app listening on 0.0.0.0:8000? make sure it is not only listening on 127.0.0.1 (hint: look at your startup logs, servers often print the address they are listening on)
+2023-10-29 00:41:39.156497 PDT | rxh-prod-chapps-lime-moon | None |  Info: Overriding config value redis_url with env var REDIS_URL=localhost:6379
+2023-10-29 00:41:39.157292 PDT | rxh-prod-chapps-lime-moon | None |  Info: Overriding config value telemetry_enabled with env var TELEMETRY_ENABLED=0
+2023-10-29 00:41:39.160536 PDT | rxh-prod-chapps-lime-moon | None |  Info: Using redis at localhost:6379
+2023-10-29 00:41:39.419514 PDT | rxh-prod-chapps-lime-moon | None | Health check on port 8000 has failed. Your app is not responding properly. Services exposed on ports [80, 443] will have intermittent failures until the health check passes.
+2023-10-29 00:42:09.203765 PDT | rxh-prod-chapps-lime-moon | None | Health check on port 8000 is now passing.
+2023-10-29 00:42:30.157349 PDT | rxh-prod-chapps-lime-moon | None |  Task exception was never retrieved
+2023-10-29 00:42:30.157356 PDT | rxh-prod-chapps-lime-moon | None |  future: <Task finished name='Task-20' coro=<AsyncServer._handle_event_internal() done, defined at /home/reflexuser/venv/lib/python3.11/site-packages/socketio/async_server.py:595> exception=PicklingError('Pickling client objects is explicitly not supported.\nClients have non-trivial state that is local and unpickleable.')>
+2023-10-29 00:42:30.157357 PDT | rxh-prod-chapps-lime-moon | None |  Traceback (most recent call last):
+2023-10-29 00:42:30.157359 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/socketio/async_server.py", line 597, in _handle_event_internal
+2023-10-29 00:42:30.157360 PDT | rxh-prod-chapps-lime-moon | None |      r = await server._trigger_event(data[0], namespace, sid, *data[1:])
+2023-10-29 00:42:30.157360 PDT | rxh-prod-chapps-lime-moon | None |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:30.157364 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/socketio/async_server.py", line 642, in _trigger_event
+2023-10-29 00:42:30.157364 PDT | rxh-prod-chapps-lime-moon | None |      return await self.namespace_handlers[namespace].trigger_event(
+2023-10-29 00:42:30.157364 PDT | rxh-prod-chapps-lime-moon | None |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:30.157365 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/socketio/async_namespace.py", line 37, in trigger_event
+2023-10-29 00:42:30.157365 PDT | rxh-prod-chapps-lime-moon | None |      ret = await handler(*args)
+2023-10-29 00:42:30.157366 PDT | rxh-prod-chapps-lime-moon | None |            ^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:30.157367 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/reflex/app.py", line 1013, in on_event
+2023-10-29 00:42:30.157368 PDT | rxh-prod-chapps-lime-moon | None |      async for update in process(self.app, event, sid, headers, client_ip):
+2023-10-29 00:42:30.157368 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/reflex/app.py", line 833, in process
+2023-10-29 00:42:30.157369 PDT | rxh-prod-chapps-lime-moon | None |      async with app.state_manager.modify_state(event.token) as state:
+2023-10-29 00:42:30.157369 PDT | rxh-prod-chapps-lime-moon | None |    File "/usr/local/lib/python3.11/contextlib.py", line 204, in __aenter__
+2023-10-29 00:42:30.157369 PDT | rxh-prod-chapps-lime-moon | None |      return await anext(self.gen)
+2023-10-29 00:42:30.157370 PDT | rxh-prod-chapps-lime-moon | None |             ^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:30.157370 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/reflex/state.py", line 1600, in modify_state
+2023-10-29 00:42:30.157370 PDT | rxh-prod-chapps-lime-moon | None |      state = await self.get_state(token)
+2023-10-29 00:42:30.157371 PDT | rxh-prod-chapps-lime-moon | None |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:30.157371 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/reflex/state.py", line 1562, in get_state
+2023-10-29 00:42:30.157372 PDT | rxh-prod-chapps-lime-moon | None |      await self.set_state(token, self.state())
+2023-10-29 00:42:30.157372 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/reflex/state.py", line 1587, in set_state
+2023-10-29 00:42:30.157553 PDT | rxh-prod-chapps-lime-moon | None |      await self.redis.set(token, cloudpickle.dumps(state), ex=self.token_expiration)
+2023-10-29 00:42:30.157563 PDT | rxh-prod-chapps-lime-moon | None |                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:30.157568 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/cloudpickle/cloudpickle_fast.py", line 73, in dumps
+2023-10-29 00:42:30.157570 PDT | rxh-prod-chapps-lime-moon | None |      cp.dump(obj)
+2023-10-29 00:42:30.157570 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/cloudpickle/cloudpickle_fast.py", line 632, in dump
+2023-10-29 00:42:30.157572 PDT | rxh-prod-chapps-lime-moon | None |      return Pickler.dump(self, obj)
+2023-10-29 00:42:30.157572 PDT | rxh-prod-chapps-lime-moon | None |             ^^^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:30.157573 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 194, in __getstate__
+2023-10-29 00:42:30.157573 PDT | rxh-prod-chapps-lime-moon | None |      raise PicklingError(
+2023-10-29 00:42:30.157573 PDT | rxh-prod-chapps-lime-moon | None |  _pickle.PicklingError: Pickling client objects is explicitly not supported.
+2023-10-29 00:42:30.157575 PDT | rxh-prod-chapps-lime-moon | None |  Clients have non-trivial state that is local and unpickleable.
+2023-10-29 00:42:34.978846 PDT | rxh-prod-chapps-lime-moon | None |  Task exception was never retrieved
+2023-10-29 00:42:34.978855 PDT | rxh-prod-chapps-lime-moon | None |  future: <Task finished name='Task-33' coro=<AsyncServer._handle_event_internal() done, defined at /home/reflexuser/venv/lib/python3.11/site-packages/socketio/async_server.py:595> exception=PicklingError('Pickling client objects is explicitly not supported.\nClients have non-trivial state that is local and unpickleable.')>
+2023-10-29 00:42:34.978856 PDT | rxh-prod-chapps-lime-moon | None |  Traceback (most recent call last):
+2023-10-29 00:42:34.978857 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/socketio/async_server.py", line 597, in _handle_event_internal
+2023-10-29 00:42:34.978858 PDT | rxh-prod-chapps-lime-moon | None |      r = await server._trigger_event(data[0], namespace, sid, *data[1:])
+2023-10-29 00:42:34.978858 PDT | rxh-prod-chapps-lime-moon | None |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:34.978859 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/socketio/async_server.py", line 642, in _trigger_event
+2023-10-29 00:42:34.978859 PDT | rxh-prod-chapps-lime-moon | None |      return await self.namespace_handlers[namespace].trigger_event(
+2023-10-29 00:42:34.978859 PDT | rxh-prod-chapps-lime-moon | None |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:34.978860 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/socketio/async_namespace.py", line 37, in trigger_event
+2023-10-29 00:42:34.978860 PDT | rxh-prod-chapps-lime-moon | None |      ret = await handler(*args)
+2023-10-29 00:42:34.978860 PDT | rxh-prod-chapps-lime-moon | None |            ^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:34.978861 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/reflex/app.py", line 1013, in on_event
+2023-10-29 00:42:34.978861 PDT | rxh-prod-chapps-lime-moon | None |      async for update in process(self.app, event, sid, headers, client_ip):
+2023-10-29 00:42:34.978862 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/reflex/app.py", line 833, in process
+2023-10-29 00:42:34.978862 PDT | rxh-prod-chapps-lime-moon | None |      async with app.state_manager.modify_state(event.token) as state:
+2023-10-29 00:42:34.978862 PDT | rxh-prod-chapps-lime-moon | None |    File "/usr/local/lib/python3.11/contextlib.py", line 204, in __aenter__
+2023-10-29 00:42:34.978863 PDT | rxh-prod-chapps-lime-moon | None |      return await anext(self.gen)
+2023-10-29 00:42:34.978863 PDT | rxh-prod-chapps-lime-moon | None |             ^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:34.978863 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/reflex/state.py", line 1600, in modify_state
+2023-10-29 00:42:34.978863 PDT | rxh-prod-chapps-lime-moon | None |      state = await self.get_state(token)
+2023-10-29 00:42:34.978864 PDT | rxh-prod-chapps-lime-moon | None |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:34.978864 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/reflex/state.py", line 1562, in get_state
+2023-10-29 00:42:34.978865 PDT | rxh-prod-chapps-lime-moon | None |      await self.set_state(token, self.state())
+2023-10-29 00:42:34.978865 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/reflex/state.py", line 1587, in set_state
+2023-10-29 00:42:34.979025 PDT | rxh-prod-chapps-lime-moon | None |      await self.redis.set(token, cloudpickle.dumps(state), ex=self.token_expiration)
+2023-10-29 00:42:34.979027 PDT | rxh-prod-chapps-lime-moon | None |                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:34.979030 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/cloudpickle/cloudpickle_fast.py", line 73, in dumps
+2023-10-29 00:42:34.979032 PDT | rxh-prod-chapps-lime-moon | None |      cp.dump(obj)
+2023-10-29 00:42:34.979032 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/cloudpickle/cloudpickle_fast.py", line 632, in dump
+2023-10-29 00:42:34.979033 PDT | rxh-prod-chapps-lime-moon | None |      return Pickler.dump(self, obj)
+2023-10-29 00:42:34.979034 PDT | rxh-prod-chapps-lime-moon | None |             ^^^^^^^^^^^^^^^^^^^^^^^
+2023-10-29 00:42:34.979034 PDT | rxh-prod-chapps-lime-moon | None |    File "/home/reflexuser/venv/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 194, in __getstate__
+2023-10-29 00:42:34.979034 PDT | rxh-prod-chapps-lime-moon | None |      raise PicklingError(
+2023-10-29 00:42:34.979035 PDT | rxh-prod-chapps-lime-moon | None |  _pickle.PicklingError: Pickling client objects is explicitly not supported.
+2023-10-29 00:42:34.979036 PDT | rxh-prod-chapps-lime-moon | None |  Clients have non-trivial state that is local and unpickleable.
+Log server disconnected ...
+Note that the server has limit to only stream logs for several minutes

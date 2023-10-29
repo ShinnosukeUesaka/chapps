@@ -11,7 +11,7 @@ def chappConfig() -> rx.Component:
 def configuration():
     return rx.vstack(
         rx.heading("Tool Configuration", font_size="2em", padding ="5"),
-        rx.hstack(
+        rx.flex(
             rx.vstack(
                 rx.text("Title"),
                 rx.input(
@@ -45,7 +45,7 @@ def configuration():
                 ),
             )
         ),
-        
+
         rx.divider(),
         rx.heading("Results"),
         rx.text(ConfigChappState.description_of_chapp),

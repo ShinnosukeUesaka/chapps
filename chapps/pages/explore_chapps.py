@@ -26,11 +26,11 @@ def main_content():
             ),
             rx.button(
                 "Submit", type_="submit", padding ="5",
-                on_click=ExploreState.search_chaps()
+                on_click=ExploreState.search_chaps
             ),
             rx.responsive_grid(
                 rx.foreach(ExploreState.search_results, display_chapp),
-                columns=[2, 4, 6],
+                columns=[2, 3],
             ),
         ),
         #rx.box(rx.foreach(State.chats[State.current_chat], "ji")),

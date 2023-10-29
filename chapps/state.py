@@ -119,17 +119,18 @@ class ConfigChappState(State):
         self.unsaved_chapp.inputs.name = name
         #TODO
         pass
-        
+
 
     def edit_examples(self):
-        
+
         pass
 
 class ExploreState(State):
     search_query: str = None
     search_results: list[Chapp] = []
 
-    def search_chaps(self, serach_query):
+    def search_chaps(self):
+        search_results = []
         query = self.search_query
         #TODO semantic search
         # for now random search with limit of 5.
