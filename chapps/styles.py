@@ -61,3 +61,16 @@ markdown_style = {
         },
     ),
 }
+
+header_style = {
+    "text-align": "center",
+    "font-size": "4rem",
+    "font-weight": "600",
+}
+
+inp_style = {
+    "border-radius": "1.875rem",
+    "background": "#EAF0F3",
+    "box-shadow": "-4px -4px 8px 4px #FFF, 4px 4px 8px 4px #D9D9D9",
+    "width": "32.1875em",
+}

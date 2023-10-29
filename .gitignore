@@ -113,6 +113,7 @@ downloads/
 eggs/
 env.bak/
 env/
+firebase_auth.json
 htmlcov/
 instance/
 ipython_config.py
@@ -131,4 +132,3 @@ var/
 venv.bak/
 venv/
 wheels/
-firebase_auth.json
