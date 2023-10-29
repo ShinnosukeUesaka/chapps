@@ -67,6 +67,7 @@
 *.sage.py
 *.so
 *.spec
+.DS_Store
 .Python
 .cache
 .coverage
@@ -132,5 +133,3 @@ var/
 venv.bak/
 venv/
 wheels/
-firebase_auth.json
-.DS_Store
