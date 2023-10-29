@@ -17,7 +17,11 @@ def index() -> rx.Component:
         The UI for the home page.
     """
     return rx.flex(
-        rx.button("Explore", on_click=State.toggle_explore),
+        rx.cond(
+            State.explore_toggled,
+            rx.button("Libary", on_click=State.toggle_explore),
+            rx.button("Explore", on_click=State.toggle_explore),
+        ),
         rx.cond(
             State.explore_toggled,
             explore_page(), library_page(),
