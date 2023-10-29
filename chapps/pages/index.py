@@ -16,6 +16,18 @@ def index() -> rx.Component:
     Returns:
         The UI for the home page.
     """
+    return rx.cond(
+        ConfigChappState.generating_chapp,
+        rx.box(
+            rx.progress(is_indeterminate=True, width="100%", position='absolute', z_value=1),
+            rx.image(src='/loading_page_bg.png', width='auto', height='1080', z_value=0),
+        background_color = '#EAF0F3',
+        ),
+        main_screen(),
+    )
+
+
+def main_screen():
     return rx.flex(
         rx.vstack(
             rx.cond(
@@ -30,7 +42,7 @@ def index() -> rx.Component:
             width="65%",
             margin_top= "3em"
         ),
-        
+
         rx.button(
             rx.icon(tag="moon"),
             on_click=rx.toggle_color_mode,
@@ -45,7 +57,7 @@ def index() -> rx.Component:
             margin_top= "5em",
             margin_right = "5em"
         ),
-       
+
     )
 
 def create_new_chapp_sidebar():
