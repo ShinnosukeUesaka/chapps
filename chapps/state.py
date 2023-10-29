@@ -114,7 +114,7 @@ class ConfigChappState(State):
 
     def save_chapp(self):
         db.collection("chapps").document(self.unsaved_chapp.id).set(self.unsaved_chapp.dict())
-        return rx.redirect("/")
+        return rx.redirect(f"/chapp/{self.unsaved_chapp.id}")
 
     def edit_title(self, text):
         self.unsaved_chapp.title = text
