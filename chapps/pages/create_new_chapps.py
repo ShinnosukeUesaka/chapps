@@ -5,7 +5,7 @@ import reflex as rx
 from chapps.styles import *
 
 
-@template(route="/createNewChapps", title="CreateNewChapps", on_load=State.check_logged_in)
+@rx.page(route="/create", title="Create New Chapps", on_load=State.check_logged_in)
 def createNewChapps() -> rx.Component:
     """The dashboard page.
 
@@ -18,6 +18,16 @@ def createNewChapps() -> rx.Component:
     )
 
 def create_chapp():
+    return rx.hstack(
+        rx.link(rx.text("Home"), href="/"),
+        main_content(),
+        rx.link(rx.text("Explore"), href="/explore"),
+    )
+
+def loading_screen():
+    return rx.vstack(rx.text("Generating a Chapp..."), rx.progress(is_indeterminate=True, width="100%"))
+
+def main_content():
     return rx.vstack(
         rx.heading("What do tools do you want to create", font_size="3em", padding ="5", style = header_style),
         rx.vstack(
@@ -30,6 +40,3 @@ def create_chapp():
             rx.button("Submit", type_="confirm", on_click=ConfigChappState.create_chapp()),
         )
     )
-
-def loading_screen():
-    return rx.vstack(rx.text("Generating a Chapp..."), rx.progress(is_indeterminate=True, width="100%"))

@@ -7,10 +7,17 @@ import reflex as rx
 def display_chapp(chapp: Chapp):
     return rx.box(rx.text(chapp.title))
 
-@template(route="/exploreChapps", title="exploreChapps", on_load=State.check_logged_in)
+@rx.page(route="/explore", title="exploreChapps", on_load=State.check_logged_in)
 def exploreChapps() -> rx.Component:
+    return rx.hstack(
+            rx.link(rx.text("New"), href="/create"),
+            main_content(),
+            rx.link(rx.text("Home"), href="/"),
+    )
+
+def main_content():
     return rx.vstack(
-        rx.heading("search tools", font_size="2em", padding ="5"),
+        rx.heading("search toolss", font_size="2em", padding ="5"),
         rx.vstack(
             rx.input(
                 placeholder="Tool Description",
