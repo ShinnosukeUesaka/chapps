@@ -30,7 +30,8 @@ def configuration():
                     value=ConfigChappState.unsaved_chapp.instruction,
                     on_change=lambda value:ConfigChappState.edit_instruction(value),
                     id="tool_instruction",
-                , on_click=ConfigChappState.save_chapp()),
+                ),
+                rx.button("Confirm", on_click=ConfigChappState.save_chapp()),
             ),
 
             rx.vstack(
