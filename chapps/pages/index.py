@@ -34,7 +34,7 @@ def index() -> rx.Component:
     )
 
 def create_new_chapp_sidebar():
-    return  rx.vstack(
+    return rx.vstack(
         rx.heading("What do tools do you want to create", font_size="3em", padding ="5", style = header_style),
         rx.vstack(
             rx.input(
@@ -46,8 +46,11 @@ def create_new_chapp_sidebar():
             ),
             rx.button("Submit", type_="confirm", on_click=ConfigChappState.create_chapp(), style = submit_style),
         ),
-        width = "40%",
+
     )
+
+
+
 
 def explore_page():
     return rx.vstack(
@@ -77,10 +80,11 @@ def chapp_card(chapp: Chapp):
         rx.center(
             rx.link(
                 rx.heading(chapp.title, font_size="2em"),
+                rx.text(chapp.short_description),
                 href=f"/chapp/{chapp.id}",
-            )
+            ),
         ),
-        height="15em", width="15em", bg="lightgreen",style = card_style,
+        height="15em", width="15em", bg="#EAF0F3",style = card_style,
     )
 
 def chapp_grid(chapps: list[Chapp]) -> rx.Component:
