@@ -17,25 +17,40 @@ def index() -> rx.Component:
         The UI for the home page.
     """
     return rx.flex(
-        rx.cond(
-            State.explore_toggled,
-            rx.button("Libary", on_click=State.toggle_explore),
-            rx.button("Explore", on_click=State.toggle_explore),
+        rx.vstack(
+            rx.cond(
+                State.explore_toggled,
+                rx.button("Libary", on_click=State.toggle_explore),
+                rx.button("Explore", on_click=State.toggle_explore),
+            ),
+            rx.cond(
+                State.explore_toggled,
+                explore_page(), library_page(),
+            ),
+            width="65%",
+            margin_top= "3em"
         ),
-        rx.cond(
-            State.explore_toggled,
-            explore_page(), library_page(),
-        ),
+        
         rx.button(
             rx.icon(tag="moon"),
             on_click=rx.toggle_color_mode,
         ),
-        create_new_chapp_sidebar(),
+        rx.vstack(
+            rx.spacer(),
+            rx.image(
+                src="/logo.svg", width="100px", height="auto"
+            ),
+            create_new_chapp_sidebar(),
+            width="35%",
+            margin_top= "5em",
+            margin_right = "5em"
+        ),
+       
     )
 
 def create_new_chapp_sidebar():
     return rx.vstack(
-        rx.heading("What do tools do you want to create", font_size="3em", padding ="5", style = header_style),
+        rx.text("What tools do you want to create", text_size="2em", padding ="5"),
         rx.vstack(
             rx.input(
                 placeholder="Tool Description",
@@ -60,7 +75,8 @@ def explore_page():
             placeholder="Tool Description",
             id="tool_description",
             value=ExploreState.search_query,
-            on_change=ExploreState.set_search_query
+            on_change=ExploreState.set_search_query,
+            style = text_field,
         ),
         rx.button(
             "Submit", type_="submit", padding ="5",
@@ -78,13 +94,19 @@ def library_page():
 def chapp_card(chapp: Chapp):
     return rx.box(
         rx.center(
-            rx.link(
-                rx.heading(chapp.title, font_size="2em"),
-                rx.text(chapp.short_description),
-                href=f"/chapp/{chapp.id}",
-            ),
+            rx.vstack(
+                rx.link(
+                    rx.text(chapp.title, font_size="16px"),
+                    href=f"/chapp/{chapp.id}",
+                    padding_left="20px",
+                    padding_right="20px",
+
+                ),
+                rx.text(chapp.short_description, font_size="1em"),
+                padding="20px",
+            )
         ),
-        height="15em", width="15em", bg="#EAF0F3",style = card_style,
+        height="8em", width="10em", bg="#EAF0F3",style = card_style,
     )
 
 def chapp_grid(chapps: list[Chapp]) -> rx.Component:

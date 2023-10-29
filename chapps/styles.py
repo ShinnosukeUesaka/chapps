@@ -113,3 +113,11 @@ button_style = {
     "border-radius": "2.5rem",
     "background": "linear-gradient(93deg, #0068AB 5.3%, #00BDD3 70.88%, #4AF1FD 136.46%)",
 }
+
+text_field = {
+    "border-radius": "30px",
+    "background": "#EAF0F3",
+    "box-shadow": "-4px -4px 8px 4px #FFF, 4px 4px 8px 4px #D9D9D9",
+}
+
+
