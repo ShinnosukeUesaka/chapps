@@ -85,3 +85,11 @@ submit_style = {
     "margin-block-start": "-200px",
     "background": "linear-gradient(93deg, #0068AB 5.3%, #00BDD3 70.88%, #4AF1FD 136.46%)",
 }
+
+button_style = {
+    "height": "2.5625rem",
+    "flex-shrink": "0",
+    "text_color" : "white",
+    "border-radius": "2.5rem",
+    "background": "linear-gradient(93deg, #0068AB 5.3%, #00BDD3 70.88%, #4AF1FD 136.46%)",
+}
