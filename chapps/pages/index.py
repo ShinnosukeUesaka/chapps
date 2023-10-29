@@ -17,19 +17,20 @@ def index() -> rx.Component:
         The UI for the home page.
     """
     return rx.flex(
-        rx.button("Explore", on_click=State.toggle_explore),
-        rx.hstack(
-            rx.cond(
-                State.explore_toggled,
-                explore_page(), library_page(),
-            ),
-            rx.button(
-                rx.icon(tag="moon"),
-                on_click=rx.toggle_color_mode,
-            ),
-            create_new_chapp_sidebar(),
-        )
-        
+        rx.cond(
+            State.explore_toggled,
+            rx.button("Libary", on_click=State.toggle_explore),
+            rx.button("Explore", on_click=State.toggle_explore),
+        ),
+        rx.cond(
+            State.explore_toggled,
+            explore_page(), library_page(),
+        ),
+        rx.button(
+            rx.icon(tag="moon"),
+            on_click=rx.toggle_color_mode,
+        ),
+        create_new_chapp_sidebar(),
     )
 
 def create_new_chapp_sidebar():
