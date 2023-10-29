@@ -17,3 +17,8 @@ def add_or_get_user(name):
         'name': name,
     })
     return doc_ref.get().to_dict()
+
+def save_chap(chap_dictionary: dict):
+    doc_ref = db.collection('chapps').document()
+    doc_ref.set(chap_dictionary)
+    return doc_ref.get().to_dict()

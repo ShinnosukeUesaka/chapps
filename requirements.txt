@@ -1,2 +1,4 @@
 reflex==0.3.1
-supabase-py
+firebase-admin
+openai
+pyyaml
