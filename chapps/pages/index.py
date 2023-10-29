@@ -75,12 +75,12 @@ def chapp_card(chapp: Chapp):
                 href=f"/chapp/{chapp.id}",
             )
         ),
-        height="15em", width="15em", bg="lightgreen"
+        height="15em", width="15em", bg="lightgreen",style = card_style,
     )
 
 def chapp_grid(chapps: list[Chapp]) -> rx.Component:
     return rx.responsive_grid(
         rx.foreach(chapps, chapp_card),
         columns=[2, 3],
-        spacing="4",
+        spacing="20",
     )
