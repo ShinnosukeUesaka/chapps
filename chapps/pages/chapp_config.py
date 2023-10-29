@@ -29,6 +29,33 @@ def configuration():
                     id="tool_description",
                 ),
                 rx.checkbox("User PDF to provide knowledge.", is_checked=ConfigChappState.unsaved_chapp.rag, on_change=lambda value: ConfigChappState.toggle_rag(value)),
+                rx.cond(
+                    ConfigChappState.unsaved_chapp.rag,
+                    rx.box(
+                        rx.input(
+                            value=ConfigChappState.unsaved_chapp.pdf_description,
+                            on_change=lambda value:ConfigChappState.edit_pdf_description(value),
+                            id="tool_rag_pdf",
+                        ),
+                        rx.upload(
+                            rx.text(
+                                "Drag and drop files here or click to select files"
+                            ),
+                            border="1px dotted rgb(107,99,246)",
+                            padding="5em",
+                            multiple=False,
+                            accept={
+                                "application/pdf": [".pdf"],
+                            },
+                        ),
+                        rx.button(
+                            "Upload",
+                            on_click=lambda: ConfigChappState.handle_upload(
+                                rx.upload_files()
+                            ),
+                        ),
+                    ),
+                ),
                 rx.hstack(
                     rx.text("Tool Inputs"),
                     rx.button("Add Input", on_click=ConfigChappState.add_input()),
@@ -47,8 +74,9 @@ def configuration():
             rx.vstack(
                 rx.heading("Examples"),
             )
+                    )
+
         ),
-    )
 
 def input_field(input):
     return rx.hstack(

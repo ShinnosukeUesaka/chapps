@@ -3,7 +3,8 @@ import reflex as rx
 from chapps import firebase_utils
 import yaml
 from chapps.openai_utils import create_chat_and_parse, GPTConfig, create_chat
-from chapps.firebase_utils import db
+from chapps.firebase_utils import db, bucket
+from chapps.embedding_utils import create_embedding
 import uuid
 from typing import Optional
 
@@ -31,8 +32,9 @@ class Chapp(rx.Base):
     examples: list[Example]
     instruction: str
     rag: bool = False
-    pdf_description: Optional[str] = None
+    pdf_description: Optional[str] = ""
     pdf_path: Optional[str] = None # for rag
+    emb_db_collection: Optional[str] = None # for rag
 
 
 class State(rx.State):
@@ -89,7 +91,17 @@ class RunChappState(State):
         self.inputs[name] = value
 
     def run_chapp(self):
-        self.output = call_chapp(self.chapp, self.inputs)
+        if self.chapp.rag and self.chapp.emb_db_collection is None:
+            # create embedding
+            # save pdf to local
+            bucket.blob(self.chapp.pdf_path).download_to_filename("temp.pdf")
+            # create embedding
+            create_embedding("temp.pdf", self.chapp.id)
+
+        if self.chapp.rag:
+            self.output = call_chapp_rag(self.chapp, self.inputs)
+        else:
+            self.output = call_chapp(self.chapp, self.inputs)
 
 
 class ConfigChappState(State):
@@ -151,6 +163,26 @@ class ConfigChappState(State):
 
     def toggle_rag(self):
         self.unsaved_chapp.rag = not self.unsaved_chapp.rag
+
+    def edit_pdf_description(self, text):
+        self.unsaved_chapp.pdf_description = text
+
+    async def handle_upload(
+        self, files: list[rx.UploadFile]
+    ):
+        """Handle the upload of file(s).
+
+        Args:
+            files: The uploaded files.
+        """
+        for file in files:
+            upload_data = await file.read()
+            uid = uuid.uuid4().hex
+            upload_path = f"pdfs/{uid}.pdf"
+            self.unsaved_chapp.pdf_path = upload_path
+            blob = bucket.blob(upload_path)
+            blob.upload_from_string(upload_data, content_type="application/pdf")
+
 
 class ExploreState(State):
     search_query: str = ''
@@ -324,3 +356,14 @@ Strictly follow the format of the example below.
 """
 
     return create_chat(messages=[{"role": "user", "content": prompt}], gpt_config=GPTConfig())
+
+def call_chapp_rag(chapp: Chapp, inputs: dict[str, str]) -> str:
+    formated_instruction = chapp.instruction.format(**inputs)
+    example_string = "Example Input\n"
+    for example in chapp.examples:
+        for key, value in example.inputs.items():
+            example_string += f"{key}: {value}\n"
+        example_string += f"\nExample Output\n{example.output}"
+
+
+    prompt = f"""{formated_instruction}"""
