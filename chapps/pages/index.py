@@ -53,6 +53,7 @@ def explore_page():
         rx.input(
             placeholder="Tool Description",
             id="tool_description",
+            value=ExploreState.search_query,
             on_change=ExploreState.set_search_query
         ),
         rx.button(
@@ -70,7 +71,7 @@ def library_page():
 
 def chapp_grid(chapps: list[Chapp]) -> rx.Component:
     return rx.responsive_grid(
-        rx.foreach(HomeState.my_chapps, chapp_card),
+        rx.foreach(chapps, chapp_card),
         columns=[2, 3],
         spacing="4",
     )

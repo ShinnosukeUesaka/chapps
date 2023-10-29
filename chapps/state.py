@@ -129,11 +129,11 @@ class ConfigChappState(State):
         pass
 
 class ExploreState(State):
-    search_query: str = None
+    search_query: str = ''
     search_results: list[Chapp] = []
 
     def search_chaps(self):
-        search_results = []
+        self.search_results = []
         query = self.search_query
         #TODO semantic search
         # for now random search with limit of 5.
