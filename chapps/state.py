@@ -60,6 +60,7 @@ class HomeState(State):
     my_chapps: list[Chapp]
 
     def get_chapps(self):
+        self.my_chapps = []
         data = db.collection("chapps").where("user", "==", self.user.id).stream()
         for doc in data:
             chapp = doc.to_dict()
@@ -67,9 +68,19 @@ class HomeState(State):
 
 class RunChappState(State):
     chapp: Chapp = None
-    inputs: list[str]
+    inputs: dict[str, str] = {}
     output: str
     status: str
+
+    def get_chapp(self):
+        chapp_id = self.get_query_params()["chapp_id"]
+        print(chapp_id)
+        doc = db.collection("chapps").document(chapp_id).get()
+        chapp = doc.to_dict()
+        self.chapp = Chapp(**chapp)
+
+    def set_input(self, name, value):
+        self.inputs[name] = value
 
     def run_chapp(self):
         self.output = call_chapp(self.chapp, self.inputs)
@@ -90,6 +101,7 @@ class ConfigChappState(State):
 
     def save_chapp(self):
         db.collection("chapps").document(self.unsaved_chapp.id).set(self.unsaved_chapp.dict())
+        return rx.redirect("/")
 
     def edit_title(self, text):
         self.unsaved_chapp.title = text
@@ -111,9 +123,6 @@ class ConfigChappState(State):
         #TODO
         pass
 
-    def save_chapp(self):
-        db.collection("chapps").document(self.chapp.id).set(self.chapp.dict())
-
 class ExploreState(State):
     search_query: str = None
     search_results: list[Chapp] = []
@@ -126,6 +135,13 @@ class ExploreState(State):
         for doc in data:
             chapp = doc.to_dict()
             self.search_results.append(Chapp(**chapp))
+
+
+
+
+
+
+
 
 
 def create_chapp(description: str, user_id: str) -> Chapp:

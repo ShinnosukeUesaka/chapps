@@ -30,7 +30,7 @@ def configuration():
                     value=ConfigChappState.unsaved_chapp.instruction,
                     on_change=lambda value:ConfigChappState.edit_instruction(value),
                     id="tool_instruction",
-                ),
+                , on_click=ConfigChappState.save_chapp()),
             ),
 
             rx.vstack(
@@ -45,4 +45,5 @@ def configuration():
         rx.divider(),
         rx.heading("Results"),
         rx.text(ConfigChappState.description_of_chapp),
+        rx.button("Confirm", type_="confirm", on_click=ConfigChappState.save_chapp()),
     )
