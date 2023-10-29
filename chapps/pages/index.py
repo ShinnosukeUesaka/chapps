@@ -46,6 +46,7 @@ def create_new_chapp_sidebar():
             ),
             rx.button("Submit", type_="confirm", on_click=ConfigChappState.create_chapp(), style = submit_style),
         ),
+        width = "40%",
     )
 
 def explore_page():

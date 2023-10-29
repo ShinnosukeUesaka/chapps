@@ -72,7 +72,7 @@ class HomeState(State):
 class RunChappState(State):
     chapp: Chapp = None
     inputs: dict[str, str] = {}
-    output: str
+    output: str = "Your result will appear here"
     status: str
 
     def get_chapp(self):
