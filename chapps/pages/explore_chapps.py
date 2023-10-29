@@ -1,11 +1,11 @@
 from chapps.templates import template
 from chapps.state import ExploreState, State
 from chapps.state import Chapp
-
+from chapps.components.chapp_card import chapp_card
 import reflex as rx
 
-def display_chapp(chapp: Chapp):
-    return rx.box(rx.text(chapp.title))
+
+
 
 @rx.page(route="/explore", title="exploreChapps", on_load=State.check_logged_in)
 def exploreChapps() -> rx.Component:
@@ -29,7 +29,7 @@ def main_content():
                 on_click=ExploreState.search_chaps
             ),
             rx.responsive_grid(
-                rx.foreach(ExploreState.search_results, display_chapp),
+                rx.foreach(ExploreState.search_results, chapp_card),
                 columns=[2, 3],
             ),
         ),

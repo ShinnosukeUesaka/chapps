@@ -3,6 +3,8 @@
 from chapps import styles
 from chapps.templates import template
 from chapps.state import State, HomeState, Chapp
+from chapps.components.chapp_card import chapp_card
+
 
 import reflex as rx
 
@@ -24,16 +26,6 @@ def index() -> rx.Component:
         ),
     )
 
-def chapp_card(chapp: Chapp):
-    return rx.box(
-        rx.center(
-            rx.link(
-                rx.heading(chapp.title, font_size="2em"),
-                href=f"/chapp/{chapp.id}",
-            )
-        ),
-        height="5em", width="5em", bg="lightgreen"
-    )
 
 def main_content():
     return rx.responsive_grid(
