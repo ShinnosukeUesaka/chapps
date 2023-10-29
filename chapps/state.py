@@ -41,11 +41,14 @@ class State(rx.State):
 
     user: User = User(id="", name="")
     logged_in: bool = False
+    explore_toggled: bool = False
 
     def check_logged_in(self):
         if not self.logged_in:
             return rx.redirect("/login")
 
+    def toggle_explore(self):
+        self.explore_toggled = not self.explore_toggled
 
     def set_username(self, username):
         self.user.name = username
