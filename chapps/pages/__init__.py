@@ -4,3 +4,4 @@ from .settings import settings
 from .createNewChapps import createNewChapps
 from .exploreChapps import exploreChapps
 from .chappConfig import chappConfig
+from .login import login

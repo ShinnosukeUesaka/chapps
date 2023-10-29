@@ -20,10 +20,10 @@ def createNewChapps() -> rx.Component:
                 id="tool_description",
             ),
             rx.link(
-                rx.button("Submit", type_="submit"),
-                href="/chappConfig",
+                rx.button("Submit", type_="confirm", on_click=CreateNewState.create_chapp()),
+                href='/',
             )
-            
+
         ),
         rx.divider(),
         rx.heading("Results"),
