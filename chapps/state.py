@@ -59,7 +59,7 @@ class State(rx.State):
 class HomeState(State):
     my_chapps: list[Chapp]
 
-    def get_chaps(self):
+    def get_chapps(self):
         data = db.collection("chapps").where("user", "==", self.user.id).stream()
         for doc in data:
             chapp = doc.to_dict()
@@ -72,7 +72,7 @@ class RunChappState(State):
     status: str
 
     def run_chapp(self):
-        self.output = call_chap(self.chapp, self.inputs)
+        self.output = call_chapp(self.chapp, self.inputs)
 
 
 class ConfigChappState(State):
@@ -87,6 +87,9 @@ class ConfigChappState(State):
         self.unsaved_chapp = chapp
         self.generating_chapp = False
         return rx.redirect("/chappConfig")
+
+    def save_chapp(self):
+        db.collection("chapps").document(self.unsaved_chapp.id).set(self.unsaved_chapp.dict())
 
     def edit_title(self, text):
         self.chapp.title = text
@@ -187,7 +190,7 @@ example:
     return chapp
 
 
-def call_chap(chapp: Chapp, inputs: dict[str, str]) -> str:
+def call_chapp(chapp: Chapp, inputs: dict[str, str]) -> str:
     formated_instruction = chapp.instruction.format(**inputs)
     example_string = "Example Input\n"
     for example in chapp.examples:
