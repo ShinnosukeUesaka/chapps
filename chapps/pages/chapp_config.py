@@ -25,6 +25,9 @@ def configuration():
                     on_change=lambda value:ConfigChappState.edit_short_description(value),
                     id="tool_description",
                 ),
+                rx.text("Tool Inputs"),
+                rx.foreach(ConfigChappState.unsaved_chapp.inputs, input_field),
+
                 rx.text("Tool Instruction"),
                 rx.input(
                     value=ConfigChappState.unsaved_chapp.instruction,
@@ -47,4 +50,13 @@ def configuration():
         rx.heading("Results"),
         rx.text(ConfigChappState.description_of_chapp),
         rx.button("Confirm", type_="confirm", on_click=ConfigChappState.save_chapp()),
+    )
+
+def input_field(input):
+    return rx.vstack(
+        rx.text(input.name),
+        rx.input(
+            placeholder=input.name,
+            on_blur=lambda value: ConfigChappState.edit_inputs(value),
+        ),
     )

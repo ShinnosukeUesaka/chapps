@@ -18,6 +18,10 @@ def index() -> rx.Component:
         rx.link(rx.text("Explore"), href="/explore"),
         main_content(),
         rx.link(rx.text("CreateNew"), href="/create"),
+        rx.button(
+            rx.icon(tag="moon"),
+            on_click=rx.toggle_color_mode,
+        ),
     )
 
 def chapp_card(chapp: Chapp):

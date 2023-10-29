@@ -115,12 +115,14 @@ class ConfigChappState(State):
     def edit_instruction(self, text):
         self.unsaved_chapp.instruction = text
 
-    def edit_inputs(self):
+    def edit_inputs(self, name):
+        self.unsaved_chapp.inputs.name = name
         #TODO
         pass
+        
 
     def edit_examples(self):
-        #TODO
+        
         pass
 
 class ExploreState(State):
