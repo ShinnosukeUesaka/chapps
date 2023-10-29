@@ -4,10 +4,7 @@ from chapps.state import ConfigChappState, State
 import reflex as rx
 
 
-@template(route="/chappConfig", title="chappConfig", on_load=State.check_logged_in)
-def chappConfig() -> rx.Component:
-    return configuration()
-
+@rx.page(route="/chappConfig", title="chappConfig", on_load=State.check_logged_in)
 def configuration():
     return rx.vstack(
         rx.heading("Tool Configuration", font_size="2em", padding ="5"),
@@ -25,7 +22,16 @@ def configuration():
                     on_change=lambda value:ConfigChappState.edit_short_description(value),
                     id="tool_description",
                 ),
-                rx.text("Tool Inputs"),
+                rx.text("How to use this tool"),
+                rx.input(
+                    value=ConfigChappState.unsaved_chapp.description,
+                    on_change=lambda value:ConfigChappState.edit_description(value),
+                    id="tool_description",
+                ),
+                rx.hstack(
+                    rx.text("Tool Inputs"),
+                    rx.button("Add Input", on_click=ConfigChappState.add_input()),
+                ),
                 rx.foreach(ConfigChappState.unsaved_chapp.inputs, input_field),
 
                 rx.text("Tool Instruction"),
@@ -38,25 +44,21 @@ def configuration():
             ),
 
             rx.vstack(
-                rx.input(
-                    value=ConfigChappState.unsaved_chapp.examples[0].output,
-                    on_change=lambda value:ConfigChappState.edit_examples(value),
-                    id="tool_description",
-                ),
+                rx.heading("Examples"),
             )
         ),
-
-        rx.divider(),
-        rx.heading("Results"),
-        rx.text(ConfigChappState.description_of_chapp),
-        rx.button("Confirm", type_="confirm", on_click=ConfigChappState.save_chapp()),
     )
 
 def input_field(input):
-    return rx.vstack(
-        rx.text(input.name),
+    return rx.hstack(
         rx.input(
-            placeholder=input.name,
-            on_blur=lambda value: ConfigChappState.edit_inputs(value),
+            value=input.name,
+            on_change=lambda value: ConfigChappState.edit_input_name(value, input.description),
         ),
+        rx.text(": "),
+        rx.input(
+            value=input.description,
+            on_change=lambda value: ConfigChappState.edit_input_description(value, input.name),
+        ),
+        rx.button("Delete", on_click=ConfigChappState.delete_input(input.name)),
     )

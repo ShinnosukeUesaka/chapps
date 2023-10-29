@@ -17,7 +17,11 @@ def index() -> rx.Component:
         The UI for the home page.
     """
     return rx.flex(
-        rx.button("Explore", on_click=State.toggle_explore),
+        rx.cond(
+            State.explore_toggled,
+            rx.button("Libary", on_click=State.toggle_explore),
+            rx.button("Explore", on_click=State.toggle_explore),
+        ),
         rx.cond(
             State.explore_toggled,
             explore_page(), library_page(),
@@ -75,12 +79,12 @@ def chapp_card(chapp: Chapp):
                 href=f"/chapp/{chapp.id}",
             )
         ),
-        height="15em", width="15em", bg="lightgreen"
+        height="15em", width="15em", bg="lightgreen",style = card_style,
     )
 
 def chapp_grid(chapps: list[Chapp]) -> rx.Component:
     return rx.responsive_grid(
         rx.foreach(chapps, chapp_card),
         columns=[2, 3],
-        spacing="4",
+        spacing="20",
     )

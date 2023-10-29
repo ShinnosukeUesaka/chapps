@@ -1,6 +1,5 @@
 import reflex as rx
 from chapps.state import State, RunChappState
-from chapps.styles import *
 
 @rx.page(route="/chapp/[chapp_id]", title="Chapp", on_load=RunChappState.get_chapp)
 def chapp_screen() -> rx.Component:
@@ -32,6 +31,8 @@ def chapp_screen() -> rx.Component:
                     rx.heading("Output:"),
                     rx.divider(height = 10),
                     rx.text(RunChappState.output),
+                    rx.divider(height = 10),
+                    rx.button("Edit", type_="confirm", on_click=ConfigChappState.edit_chapp(RunChappState.chapp.id)),
                     width = "70%",
                     padding = 7,
                     align_items = "normal"
@@ -39,7 +40,6 @@ def chapp_screen() -> rx.Component:
                 width = "90%",
             ),
             width = "55%"
-            
         )
     )
 

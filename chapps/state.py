@@ -94,6 +94,13 @@ class ConfigChappState(State):
     generating_chapp: bool = False
     description_of_chapp: str = None
 
+    def edit_chapp(self, chapp_id):
+        doc = db.collection("chapps").document(chapp_id).get()
+        chapp = doc.to_dict()
+        self.generating_chapp = False
+        self.unsaved_chapp = Chapp(**chapp)
+        return rx.redirect("/chappConfig")
+
     def create_chapp(self):
         self.generating_chapp = True
         yield
@@ -112,17 +119,32 @@ class ConfigChappState(State):
     def edit_short_description(self, text):
         self.unsaved_chapp.short_description = text
 
+    def edit_description(self, text):
+        self.unsaved_chapp.description = text
+
     def edit_icon_url(self, text):
         self.unsaved_chapp.icon_url = text
 
     def edit_instruction(self, text):
         self.unsaved_chapp.instruction = text
 
-    def edit_inputs(self, name):
-        self.unsaved_chapp.inputs.name = name
-        #TODO
-        pass
+    def edit_input_description(self, description, name):
+        for input in self.unsaved_chapp.inputs:
+            if input.name == name:
+                input.description = description
 
+    def edit_input_name(self, name, description):
+        for input in self.unsaved_chapp.inputs:
+            if input.description == description:
+                input.name = name
+
+    def add_input(self):
+        self.unsaved_chapp.inputs.append(Input(name="", description=""))
+
+    def delete_input(self, name):
+        for input in self.unsaved_chapp.inputs:
+            if input.name == name:
+                self.unsaved_chapp.inputs.remove(input)
 
     def edit_examples(self):
 
