@@ -3,7 +3,6 @@
 from chapps import styles
 from chapps.templates import template
 from chapps.state import State, HomeState, Chapp, ConfigChappState, ExploreState
-from chapps.components.chapp_card import chapp_card
 from chapps.styles import *
 
 
@@ -31,7 +30,7 @@ def index() -> rx.Component:
     )
 
 def create_new_chapp_sidebar():
-    return rx.vstack(
+    return  rx.vstack(
         rx.heading("What do tools do you want to create", font_size="3em", padding ="5", style = header_style),
         rx.vstack(
             rx.input(
@@ -43,7 +42,6 @@ def create_new_chapp_sidebar():
             ),
             rx.button("Submit", type_="confirm", on_click=ConfigChappState.create_chapp(), style = submit_style),
         ),
-        padding = "5"
     )
 
 def explore_page():
@@ -67,6 +65,17 @@ def library_page():
     return rx.vstack(
         rx.heading("Libary", font_size="2em", padding ="5"),
         chapp_grid(HomeState.my_chapps),
+    )
+
+def chapp_card(chapp: Chapp):
+    return rx.box(
+        rx.center(
+            rx.link(
+                rx.heading(chapp.title, font_size="2em"),
+                href=f"/chapp/{chapp.id}",
+            )
+        ),
+        height="15em", width="15em", bg="lightgreen"
     )
 
 def chapp_grid(chapps: list[Chapp]) -> rx.Component:
