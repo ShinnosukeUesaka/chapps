@@ -83,6 +83,7 @@ class RunChappState(State):
         print(chapp_id)
         doc = db.collection("chapps").document(chapp_id).get()
         chapp = doc.to_dict()
+        self.output = "Your result will appear here"
         self.chapp = Chapp(**chapp)
 
     def set_input(self, name, value):
@@ -151,6 +152,15 @@ class ConfigChappState(State):
 
     def toggle_rag(self):
         self.unsaved_chapp.rag = not self.unsaved_chapp.rag
+
+    def edit_example_output(self, value, index):
+        self.unsaved_chapp.examples[index].output = value
+
+    def edit_example_input(self, value, index, name):
+        new_inputs = self.unsaved_chapp.examples[index].inputs
+        new_inputs[name] = value
+        self.unsaved_chapp.examples[index]
+
 
 class ExploreState(State):
     search_query: str = ''

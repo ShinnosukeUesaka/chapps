@@ -54,9 +54,9 @@ def chapp_screen() -> rx.Component:
                 rx.vstack(
                     rx.divider(height=10),
                     rx.box(
-                        rx.markdown(RunChappState.output, width = "90%"),
+                        rx.markdown(RunChappState.output, width = "80%"),
                         box_shadow=input_field_box_shadow,
-                        height="40%",
+                        height="800px",
                     ),
                     rx.divider(height=10),
                     width="70%",
