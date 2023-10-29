@@ -9,13 +9,14 @@ def chapp_screen() -> rx.Component:
     return rx.flex(
         rx.vstack(
             rx.image(src="/robo.jpg", width="auto", height="50%"),
-            rx.heading(RunChappState.chapp.title),
-            rx.text(RunChappState.chapp.description),
+            rx.heading(RunChappState.chapp.title, ),
+            rx.text(RunChappState.chapp.description, width="90%"),
             width="45%",
             padding=4,
             background_color="#EAF0F3",
             #shadow on the right
-            drop_shadow="10px 0 #C8CED6",
+            box_shadow="4px 4px 15px 8px #C8CED6",
+            z_index="100",
         ),
         rx.vstack(
             rx.flex(
@@ -26,22 +27,22 @@ def chapp_screen() -> rx.Component:
             ),
             rx.flex(
                 rx.vstack(
-                    rx.heading("Input"),
-                    rx.divider(height=10),
-                    rx.ordered_list(
+                    rx.box(
+                        rx.heading("Input"),
+                        rx.divider(height=10),
                         rx.foreach(RunChappState.chapp.inputs, input_field),
-                        rx.divider(
-                            height=10,
-                        ),
-                        rx.button(
-                            "Run",
-                            type_="confirm",
-                            on_click=RunChappState.run_chapp(),
-                            style=button_style,
-                        ),
+                        align_items="left",
+                    ),
+                    rx.divider(
+                        height=10,
+                    ),
+                    rx.button(
+                        "Run",
+                        type_="confirm",
+                        on_click=RunChappState.run_chapp(),
+                        style=button_style,
                     ),
                     padding=7,
-                    align_items="left",
                 ),
                 rx.vstack(
                     rx.heading("Output"),
@@ -68,10 +69,11 @@ def chapp_screen() -> rx.Component:
 
 def input_field(input):
     return rx.vstack(
-        rx.text(input.name, text_align="left"),
+        rx.text(input.name, text_align="left", width="100%"),
         rx.input(
             placeholder=input.description,
             on_blur=lambda value: RunChappState.set_input(input.name, value),
+            box_shadow="4px 4px 8px 4px #FFFFFF, -4px -4px 8px 4px #C8CED6"
         ),
         aling_items="left",
     )

@@ -43,7 +43,20 @@ base_style = {
         **overlapping_button_style,
     },
     rx.MenuItem: hover_accent_bg,
-      
+    "font-family": "Nunito",
+    "font-size": "22px",
+    "font-weight": "600",
+    "line-height": "30px",
+    "color": "#00000099",
+    rx.Heading: {
+        "font_family": "Montserrat",
+        "font_size": "40px",
+        "font_weight": "600",
+        "line_height": "102px",
+        "letter_spacing": "0em",
+        "text_align": "left",
+        "color": "black"
+    }
 }
 
 markdown_style = {
