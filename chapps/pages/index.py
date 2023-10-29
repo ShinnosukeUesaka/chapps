@@ -29,33 +29,40 @@ def index() -> rx.Component:
 
 def main_screen():
     return rx.flex(
-        rx.vstack(
+        rx.hstack(
             rx.cond(
                 State.explore_toggled,
-                rx.button("Libary", on_click=State.toggle_explore),
+                rx.button("Library", on_click=State.toggle_explore),
                 rx.button("Explore", on_click=State.toggle_explore),
+
             ),
-            rx.cond(
-                State.explore_toggled,
-                explore_page(), library_page(),
+            rx.vstack(
+                rx.cond(
+                    State.explore_toggled,
+                    explore_page(), library_page(),
+
+                ),
+                align = "top",
+                height="100%",
             ),
+
             width="65%",
-            margin_top= "3em"
+            height="100%",
+            #bg_color = "#E1E8F0",
+            bg_color = "red"
+
         ),
 
-        rx.button(
-            rx.icon(tag="moon"),
-            on_click=rx.toggle_color_mode,
-        ),
-        rx.vstack(
-            rx.spacer(),
-            rx.image(
-                src="/logo.svg", width="100px", height="auto"
+        rx.flex(
+            rx.vstack(
+                rx.image(
+                    src="/logo.svg", width="100px", height="auto", margin_top="1em"
+                ),
+                create_new_chapp_sidebar(),
             ),
-            create_new_chapp_sidebar(),
             width="35%",
-            margin_top= "5em",
-            margin_right = "5em"
+            height="100%",
+            box_shadow= "-4px 4px 15px 8px #C9D3DF",
         ),
 
     )
@@ -69,12 +76,16 @@ def create_new_chapp_sidebar():
                 on_change=ConfigChappState.set_description_of_chapp,
                 id="tool_description",
                 style = inp_style,
-                padding = "3",
+                margin_left = "1em",
+                margin_right = "1em",
+
             ),
             rx.button("Submit", type_="confirm", on_click=ConfigChappState.create_chapp(), style = submit_style),
         ),
 
     )
+
+
 
 
 def explore_page():
@@ -103,20 +114,17 @@ def library_page():
 
 def chapp_card(chapp: Chapp):
     return rx.box(
-        rx.center(
-            rx.vstack(
-                rx.link(
-                    rx.text(chapp.title, font_size="16px"),
-                    href=f"/chapp/{chapp.id}",
-                    padding_left="20px",
-                    padding_right="20px",
+        rx.container(
+            rx.image(src="/robo.jpg", width="100%", height="5em",border_top_left_radius= "30px", border_top_right_radius= "30px",),
+            rx.link(
+                rx.text(chapp.title, font_size="16px"),
+                href=f"/chapp/{chapp.id}",
+                padding_left="20px",
+                padding_right="20px",
+            ),center_content=True,
 
-                ),
-                rx.text(chapp.short_description, font_size="1em"),
-                padding="20px",
-            )
         ),
-        height="8em", width="10em", bg="#EAF0F3",style = card_style,
+        height="8em", width="12em", bg="#EAF0F3",style = card_style,
     )
 
 def chapp_grid(chapps: list[Chapp]) -> rx.Component:
