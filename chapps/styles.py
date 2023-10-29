@@ -73,4 +73,15 @@ inp_style = {
     "background": "#EAF0F3",
     "box-shadow": "-4px -4px 8px 4px #FFF, 4px 4px 8px 4px #D9D9D9",
     "width": "32.1875em",
+    "margin-bottom": "50px"
+}
+
+submit_style = {
+    "width": "10.375rem",
+    "height": "2.5625rem",
+    "flex-shrink": "0",
+    "text_color" : "white",
+    "border-radius": "2.5rem",
+    "margin-block-start": "-200px",
+    "background": "linear-gradient(93deg, #0068AB 5.3%, #00BDD3 70.88%, #4AF1FD 136.46%)",
 }

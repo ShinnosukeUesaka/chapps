@@ -26,9 +26,11 @@ def create_chapp():
                 on_change=ConfigChappState.set_description_of_chapp,
                 id="tool_description",
                 style = inp_style,
+                padding = "3",
             ),
-            rx.button("Submit", type_="confirm", on_click=ConfigChappState.create_chapp()),
-        )
+            rx.button("Submit", type_="confirm", on_click=ConfigChappState.create_chapp(), style = submit_style),
+        ),
+        padding = "5"
     )
 
 def loading_screen():
