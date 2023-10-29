@@ -12,14 +12,36 @@ def configuration():
     return rx.vstack(
         rx.heading("Tool Configuration", font_size="2em", padding ="5"),
         rx.hstack(
-            rx.text("Tool Description"),
-            rx.input(
-                on_change=lambda value:ConfigChappState.edit_short_description(value),
-                id="tool_description",
+            rx.vstack(
+                rx.text("Title"),
+                rx.input(
+                    value=ConfigChappState.unsaved_chapp.title,
+                    on_change=lambda value:ConfigChappState.edit_title(value),
+                    id="tool_title",
+                ),
+                rx.text("Tool Description"),
+                rx.input(
+                    value=ConfigChappState.unsaved_chapp.short_description,
+                    on_change=lambda value:ConfigChappState.edit_short_description(value),
+                    id="tool_description",
+                ),
+                rx.text("Tool Instruction"),
+                rx.input(
+                    value=ConfigChappState.unsaved_chapp.instruction,
+                    on_change=lambda value:ConfigChappState.edit_instruction(value),
+                    id="tool_instruction",
+                ),
             ),
-            rx.button("Confirm", type_="confirm"),
-            rx.text(ConfigChappState.unsaved_chapp.short_description),
+
+            rx.vstack(
+                rx.input(
+                    value=ConfigChappState.unsaved_chapp.examples[0].output,
+                    on_change=lambda value:ConfigChappState.edit_examples(value),
+                    id="tool_description",
+                ),
+            )
         ),
+        
         rx.divider(),
         rx.heading("Results"),
         rx.text(ConfigChappState.description_of_chapp),

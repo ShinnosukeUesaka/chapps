@@ -92,16 +92,16 @@ class ConfigChappState(State):
         db.collection("chapps").document(self.unsaved_chapp.id).set(self.unsaved_chapp.dict())
 
     def edit_title(self, text):
-        self.chapp.title = text
+        self.unsaved_chapp.title = text
 
     def edit_short_description(self, text):
-        self.chapp.short_description = text
+        self.unsaved_chapp.short_description = text
 
     def edit_icon_url(self, text):
-        self.chapp.icon_url = text
+        self.unsaved_chapp.icon_url = text
 
-    def edit_intruction(self, text):
-        self.chapp.instruction = text
+    def edit_instruction(self, text):
+        self.unsaved_chapp.instruction = text
 
     def edit_inputs(self):
         #TODO
