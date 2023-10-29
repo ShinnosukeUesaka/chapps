@@ -77,6 +77,7 @@ def create_new_chapp_sidebar():
 
 
 
+
 def explore_page():
     return rx.vstack(
         rx.heading("Explore", font_size="2em", padding ="5"),
