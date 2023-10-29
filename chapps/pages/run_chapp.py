@@ -8,45 +8,51 @@ from chapps.styles import *
 def chapp_screen() -> rx.Component:
     return rx.flex(
         rx.vstack(
-            rx.image(src="/robo.jpg", width="auto", height="50%"),
-            rx.heading(RunChappState.chapp.title),
-            rx.text(RunChappState.chapp.description),
+            rx.image(src="/robo.jpg", width="100%", height="40%", background_size="cover"),
+            rx.heading(RunChappState.chapp.title, ),
+            rx.text(RunChappState.chapp.description, width="90%"),
             width="45%",
-            padding=4,
             background_color="#EAF0F3",
             #shadow on the right
-            drop_shadow="10px 0 #C8CED6",
+            box_shadow="4px 4px 15px 8px #C8CED6",
+            z_index="100",
         ),
         rx.vstack(
             rx.flex(
-                rx.box(width="90%"),
-                rx.image(src="/home.png", width="auto", height="8"),
+                rx.spacer(),
+                rx.link(
+                    rx.image(src="/home.png", width="auto", height="8"),
+                    href="/",
+                ),
                 width="100%",
-                padding=5,
             ),
             rx.flex(
                 rx.vstack(
-                    rx.heading("Input"),
-                    rx.divider(height=10),
-                    rx.ordered_list(
+                    rx.box(
+                        rx.heading("Input"),
+                        rx.divider(height=10),
                         rx.foreach(RunChappState.chapp.inputs, input_field),
-                        rx.divider(
-                            height=10,
-                        ),
-                        rx.button(
-                            "Run",
-                            type_="confirm",
-                            on_click=RunChappState.run_chapp(),
-                            style=button_style,
-                        ),
+                        align_items="left",
+                    ),
+                    rx.divider(
+                        height=10,
+                    ),
+                    rx.button(
+                        "Run",
+                        type_="confirm",
+                        on_click=RunChappState.run_chapp(),
+                        style=button_style,
                     ),
                     padding=7,
-                    align_items="left",
                 ),
                 rx.vstack(
                     rx.heading("Output"),
                     rx.divider(height=10),
-                    rx.text(RunChappState.output),
+                    rx.box(
+                        rx.markdown(RunChappState.output, width = "90%"),
+                        box_shadow=input_field_box_shadow,
+                        height="40%",
+                    ),
                     rx.divider(height=10),
                     rx.button(
                         "Edit",
@@ -61,17 +67,21 @@ def chapp_screen() -> rx.Component:
                 width="90%",
             ),
             width="55%",
+
             background_color="#E1E8F0",
         ),
+        height="100%",
     )
 
 
 def input_field(input):
     return rx.vstack(
-        rx.text(input.name, text_align="left"),
+        rx.text(input.name, text_align="left", width="100%"),
         rx.input(
             placeholder=input.description,
             on_blur=lambda value: RunChappState.set_input(input.name, value),
+            box_shadow=input_field_box_shadow,
         ),
         aling_items="left",
+        padding = "5px",
     )

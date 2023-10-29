@@ -36,6 +36,8 @@ overlapping_button_style = {
     "border_radius": border_radius,
 }
 
+input_field_box_shadow = "4px 4px 8px 4px #FFFFFF, -4px -4px 8px 4px #C8CED6"
+
 base_style = {
     rx.MenuButton: {
         "width": "3em",
@@ -43,7 +45,20 @@ base_style = {
         **overlapping_button_style,
     },
     rx.MenuItem: hover_accent_bg,
-      
+    "font-family": "Nunito",
+    "font-size": "22px",
+    "font-weight": "600",
+    "line-height": "30px",
+    "color": "#00000099",
+    rx.Heading: {
+        "font_family": "Montserrat",
+        "font_size": "40px",
+        "font_weight": "600",
+        "line_height": "102px",
+        "letter_spacing": "0em",
+        "text_align": "left",
+        "color": "black"
+    }
 }
 
 markdown_style = {
@@ -100,3 +115,11 @@ button_style = {
     "border-radius": "2.5rem",
     "background": "linear-gradient(93deg, #0068AB 5.3%, #00BDD3 70.88%, #4AF1FD 136.46%)",
 }
+
+text_field = {
+    "border-radius": "30px",
+    "background": "#EAF0F3",
+    "box-shadow": "-4px -4px 8px 4px #FFF, 4px 4px 8px 4px #D9D9D9",
+}
+
+

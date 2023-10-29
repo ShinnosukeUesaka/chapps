@@ -30,6 +30,9 @@ class Chapp(rx.Base):
     inputs: list[Input]
     examples: list[Example]
     instruction: str
+    rag: bool = False
+    pdf_description: Optional[str] = None
+    pdf_path: Optional[str] = None # for rag
 
 
 class State(rx.State):
@@ -72,7 +75,7 @@ class HomeState(State):
 class RunChappState(State):
     chapp: Chapp = None
     inputs: dict[str, str] = {}
-    output: str
+    output: str = "Your result will appear here"
     status: str
 
     def get_chapp(self):
@@ -146,9 +149,8 @@ class ConfigChappState(State):
             if input.name == name:
                 self.unsaved_chapp.inputs.remove(input)
 
-    def edit_examples(self):
-
-        pass
+    def toggle_rag(self):
+        self.unsaved_chapp.rag = not self.unsaved_chapp.rag
 
 class ExploreState(State):
     search_query: str = ''
@@ -167,19 +169,35 @@ class ExploreState(State):
 
 
 
-
-
-
+def determin_rag_needed(description: str) -> bool:
+    messages = [
+        {"role": "user", "content": """Determine if the tool that is described below requires a retrieval augmented generation technique(PDF). Answer with Yes or No.
+Example:
+get answers from your pdf files: Yes
+I want to answer questions based on student handbook of my school.: Yesr
+I want a tool that generates example sentences: No"""},
+        {"role": "user", "content": description},
+    ]
+    result = create_chat(messages=messages, gpt_config=GPTConfig())
+    if "Yes" in result:
+        return True
+    else:
+        return False
 
 
 def create_chapp(description: str, user_id: str) -> Chapp:
-    prompt = """
-Your job is to create a Chapp based on the prompt below. Chapp is a tool or an app that runs on GPT-4.
+    rag_needed = determin_rag_needed(description)
+    if rag_needed:
+        return create_chapp_with_rag(description, user_id)
+    else:
+        return create_chapp_without_rag(description, user_id)
+
+def create_chapp_without_rag(description: str, user_id: str) -> Chapp:
+    prompt = """Your job is to create a Chapp based on the prompt below. Chapp is a tool or an app that runs on GPT-4.
 
 Give me the all the variables neccesary to define the chapp.
-A chapp has a title, description, short description inputs variables(all lowercase and use underscore for multiple words), instruction(prompt for gpt-4), example pair of inputs and outputs. All the input variables are string.
-The output must strictly follow the example yaml format below, as it would be parsed programatically.
-
+A chapp has a title, description, short description inputs variables(all lowercase and use underscore for multiple words), instruction(prompt for gpt-4), example pair of inputs and outputs (must be markdown). All the input variables are string.
+Strictly follow the example yaml format below, as it would be parsed programatically.
 
 Example Input
 I want a tool that gives me a definition of a word, and three example sentences based on a context provided.
@@ -211,14 +229,70 @@ example:
     ## Example Sentences:
     1. Many students tend to procrastinate when it comes to studying for exams, often leading to stress and poor performance.
     2. In school, procrastinating on assignments can result in late submissions and penalties.
-    3. Despite knowing the importance of timely work, John often found himself procrastinating on his school projects.
-"""
+    3. Despite knowing the importance of timely work, John often found himself procrastinating on his school projects."""
 
     def parsing_function(yaml_str: str) -> Chapp:
         chapp_data = yaml.safe_load(yaml_str)
         print(chapp_data)
         uid = uuid.uuid4().hex
         chapp_data["examples"] = [chapp_data["example"]]
+        chapp_data["id"] = uid
+        chapp_data["rag"] = False
+        chapp_data["user"] = user_id
+        return Chapp(**chapp_data)
+
+    messages = [
+        {"role": "user", "content": prompt},
+        {"role": "user", "content": description},
+    ]
+    chapp = create_chat_and_parse(
+        messages=messages, parsing_function=parsing_function, gpt_config=GPTConfig()
+    )
+
+    return chapp
+
+
+def create_chapp_with_rag(description: str, user_id: str) -> Chapp:
+    prompt = """Your job is to create a Chapp based on the prompt below. Chapp is a tool or an app that runs on GPT-4 using retrieval augmented generation. The source data would be a single pdf file.
+
+Give me the all the variables neccesary to define the chapp.
+A chapp has a title, description, short description inputs variables(all lowercase and use underscore for multiple words), instruction(prompt for gpt-4), example pair of inputs and outputs (must be markdown). All the input variables are string.
+Strictly follow the example yaml format below, as it would be parsed programatically.
+
+Example Input
+I want a tool that answers questions based on my past diaries so that I can remember things.
+
+Example Output
+
+title: Diary Memory Assistant
+
+short_description: get answers on for your diary entries
+
+description: |-
+   A chapp that uses GPT-4 to answer questions based on your past diaries. It helps you remember specific events, feelings, or thoughts from your past entries.
+
+inputs:
+  - name: question
+    description: Enter a question you want to ask about your past diary entries.
+
+pdf_description:
+  diary entries
+
+instruction: |-
+  {question}?. Provide an answer to this question based on the information from the diary.
+
+example:
+  inputs:
+    word: When was the last time I wrote about feeling happy in my diary?
+  output: |-
+    The last time you wrote about feeling happy in your diary was on June 12th, 2021."""
+
+    def parsing_function(yaml_str: str) -> Chapp:
+        chapp_data = yaml.safe_load(yaml_str)
+        print(chapp_data)
+        uid = uuid.uuid4().hex
+        chapp_data["examples"] = [chapp_data["example"]]
+        chapp_data["rag"] = True
         chapp_data["id"] = uid
         chapp_data["user"] = user_id
         return Chapp(**chapp_data)
