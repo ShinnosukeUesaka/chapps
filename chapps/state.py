@@ -59,8 +59,39 @@ class ExploreState(State):
     search_query: str = None
     search_results: list[Chapp] = []
 
-    def search_chaps(self, serach_query):
-        pass
+    def search_chaps(self):
+        self.search_results.append(Chapp(
+                id=1,
+                title="test",
+                short_description="dsf",
+                how_to_use="sd",
+                icon_url="fd",
+                inputs=[],
+                examples=[],
+                instruction=[],
+            )
+        )
+
+
 
 class ConfigState(State):
-    chapp: Chapp = None
+    chapp: Chapp = Chapp(
+        id=1,
+        title="test",
+        short_description="shitty crappy chatGPT UX improvement",
+        how_to_use="sd",
+        icon_url="fd",
+        inputs=[],
+        examples=[],
+        instruction=[],
+    )
+    def change_short_description(self, short_description):
+        self.chapp.short_description = short_description
+    def change_how_to_use(self, how_to_use):
+        self.chapp.how_to_use = how_to_use
+    def change_icon_url(self, icon_url):
+        self.chapp.icon_url = icon_url
+    def change_inputs(self, inputs):
+        self.chapp.inputs = inputs.append(inputs)
+    # def change_examples(self, examples):
+

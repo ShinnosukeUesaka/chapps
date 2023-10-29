@@ -3,6 +3,7 @@ import reflex as rx
 from chapps import firebase_utils
 
 
+
 class User(rx.Base):
     id: int
     name: str
@@ -12,14 +13,14 @@ class Example(rx.Base):
     output: str
 
 class Chapp(rx.Base):
-    id: int
-    title: str
-    short_description: str
-    how_to_use: str
-    icon_url: str
-    inputs: list[str]
-    examples: list[Example]
-    instruction: list[str]
+    id: int = 1
+    title: str = "ff"
+    short_description: str = "fsdf"
+    how_to_use: str = "fasd"
+    icon_url: str = "fasd"
+    inputs: list[str] = []
+    examples: list[Example] = []
+    instruction: list[str] = []
 
 class State(rx.State):
     """Base state for the app.
@@ -59,8 +60,13 @@ class ExploreState(State):
     search_query: str = None
     search_results: list[Chapp] = []
 
-    def search_chaps(self, serach_query):
-        pass
+    def search_chaps(self):
+        self.search_results.append(Chapp(
+                id=1,
+                title="test",
+            )
+        )
+
 
 class ConfigState(State):
     chapp: Chapp = None

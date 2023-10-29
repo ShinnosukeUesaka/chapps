@@ -19,7 +19,11 @@ def createNewChapps() -> rx.Component:
                 on_change=CreateNewState.set_description_of_chapp,
                 id="tool_description",
             ),
-            rx.button("Submit", type_="submit"),
+            rx.link(
+                rx.button("Submit", type_="submit"),
+                href="/chappConfig",
+            )
+            
         ),
         rx.divider(),
         rx.heading("Results"),

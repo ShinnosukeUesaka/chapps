@@ -1,6 +1,11 @@
 from chapps.templates import template
 from chapps.state import ExploreState
+from chapps.state import Chapp
+
 import reflex as rx
+
+def display_chapp(chapp: Chapp):
+    return rx.box(rx.text(chapp.title))
 
 @template(route="/exploreChapps", title="exploreChapps")
 def exploreChapps() -> rx.Component:
@@ -14,7 +19,11 @@ def exploreChapps() -> rx.Component:
             ),
             rx.button(
                 "Submit", type_="submit", padding ="5",
-                on_click=ExploreState.search_chaps(ExploreState.search_query)
+                on_click=ExploreState.search_chaps()
+            ),
+            rx.responsive_grid(
+                rx.foreach(ExploreState.search_results, display_chapp),
+                columns=[2, 4, 6],
             ),
         ),
         #rx.box(rx.foreach(State.chats[State.current_chat], "ji")),
