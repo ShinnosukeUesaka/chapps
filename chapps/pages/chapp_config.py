@@ -28,6 +28,7 @@ def configuration():
                     on_change=lambda value:ConfigChappState.edit_description(value),
                     id="tool_description",
                 ),
+                rx.checkbox("User PDF to provide knowledge.", is_checked=ConfigChappState.unsaved_chapp.rag, on_change=lambda value: ConfigChappState.toggle_rag(value)),
                 rx.hstack(
                     rx.text("Tool Inputs"),
                     rx.button("Add Input", on_click=ConfigChappState.add_input()),
