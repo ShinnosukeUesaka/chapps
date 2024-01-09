@@ -1,6 +1,8 @@
 # Chapps
 https://devpost.com/software/chapps
 
+Create personalized software using our AI toolmaker. Build and edit reusable, shareable tools that contain domain knowledge and fit your needs. No technical skills are required, pure English.
+
 ## Key prompt
 ```
 Your job is to create a Chapp based on the prompt below. Chapp is a tool or an app that runs on GPT-4.
