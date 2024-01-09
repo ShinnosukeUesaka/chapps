@@ -1,73 +1,58 @@
-# Welcome to Reflex!
+# Chapps
+https://devpost.com/software/chapps
 
-This is the base Reflex template - installed when you run `reflex init`.
+## Key prompt
+```
+Your job is to create a Chapp based on the prompt below. Chapp is a tool or an app that runs on GPT-4.
 
-If you want to use a different template, pass the `--template` flag to `reflex init`.
-For example, if you want a more basic starting point, you can run:
+Give me the all the variables neccesary to define the chapp.
+A chapp has a title, description, short description inputs variables(all lowercase and use underscore for multiple words), instruction(prompt for gpt-4), example pair of inputs and outputs (must be markdown). All the input variables are string.
+Strictly follow the example yaml format below, as it would be parsed programatically.
 
-```bash
-reflex init --template blank
+Example Input
+I want a tool that gives me a definition of a word, and three example sentences based on a context provided.
+
+Example Output
+
+title: Word Context Definition and Example Builder
+
+short_description: A tool for learning new words and their usage in a specific context.
+
+description: |-
+   This Chapp provides you the definition of a specific word and constructs three sentences using that word, based around a specific context provided by the user. It's a tool that can be handy for learning new words, enhancing your vocabulary, and understanding the usage of a word in a context effectively.
+
+inputs:
+  - name: word
+    description: Enter the word you want to learn about and see used in sentences.
+  - name: context
+    description: Specify the context or theme within which you want to see the word used.
+instruction: |-
+  For the word "{word}", first provide a clear and concise definition. Then, based on the context of "{context}", create three unique sentences that correctly use and demonstrate the meaning of the word.
+
+example:
+  inputs:
+    word: procrastinate
+    context: school
+  output: |-
+    ## Definition
+    Procrastinate means to delay or postpone action; put off doing something.
+    ## Example Sentences:
+    1. Many students tend to procrastinate when it comes to studying for exams, often leading to stress and poor performance.
+    2. In school, procrastinating on assignments can result in late submissions and penalties.
+    3. Despite knowing the importance of timely work, John often found himself procrastinating on his school projects.
 ```
 
-## About this Template
+## Inspiration
+We face niche, personal problems all the time in our lives. Perhaps you want a tool that can format your essay in a specific way, proofread legal documents, or edit the emails you send to your professor. We had to wait for software companies to solve our problems, but what if we can create our own tools with AI? Inspired by the notable advancements in NLP, particularly with models like GPT-4, which provide a foundation for translating human intent expressed in natural language into personalized tools that can be reused and shared. This project aims to break down barriers that traditionally separate non-programmers from the ability to create software. Building on the concept of end-user programming, Chapps allows users to create software on a smaller, more personal scale as opposed to mass-produced, one-size-fits-all solutions. The idea of leveraging and building upon tools created by others introduces a collaborative aspect, promoting a shared ecosystem of tools and domain knowledge.
 
-This template has the following directory structure:
-
-```bash
-├── README.md
-├── assets
-├── rxconfig.py
-└── {your_app}
-    ├── __init__.py
-    ├── components
-    │   ├── __init__.py
-    │   └── sidebar.py
-    ├── pages
-    │   ├── __init__.py
-    │   ├── dashboard.py
-    │   ├── index.py
-    │   └── settings.py
-    ├── state.py
-    ├── styles.py
-    ├── templates
-    │   ├── __init__.py
-    │   └── template.py
-    └── {your_app}.py
-```
-
-See the [Project Structure docs](https://reflex.dev/docs/getting-started/project-structure/) for more information on general Reflex project structure.
-
-### Adding Pages
-
-In this template, the pages in your app are defined in `{your_app}/pages/`.
-Each page is a function that returns a Reflex component.
-For example, to edit this page you can modify `{your_app}/pages/index.py`.
-See the [pages docs](https://reflex.dev/docs/components/pages/) for more information on pages.
-
-In this template, instead of using `rx.add_page` or the `@rx.page` decorator,
-we use the `@template` decorator from `{your_app}/templates/template.py`.
-
-To add a new page:
-
-1. Add a new file in `{your_app}/pages/`. We recommend using one file per page, but you can also group pages in a single file.
-2. Add a new function with the `@template` decorator, which takes the same arguments as `@rx.page`.
-3. Import the page in your `{your_app}/pages/__init__.py` file and it will automatically be added to the app.
+## What it does
+Our project accepts natural language descriptions from users specifying the tools they wish to create or modify. We utilize language models to interpret user input and generate reusable software artifacts that can be saved, shared, and modified by the users on our platform. This allows for continuous improvement and editing of tools, encapsulating domain knowledge and user preferences over time. Users can make modifications to existing tools, personalizing them according to their specific requirements. Our product offers intuitive user interfaces for each tool, making them easy to use, and more memorable than chat interfaces.
 
 
-### Adding Components
+- domain knowledge a therapist can create a chapp that uses his domain knowledge to analyze patient
+- reusable tool professional email writing
+- personal niche problem
 
-In order to keep your code organized, we recommend putting components that are
-used across multiple pages in the `{your_app}/components/` directory.
+highly customizable You can take all the chapps above and modify them according to your need. i.e. changing output format, and include new input fields
 
-In this template, we have a sidebar component in `{your_app}/components/sidebar.py`.
 
-### Adding State
-
-In this template, we define the base state of the app in `{your_app}/state.py`.
-The base state is useful for general app state that is used across multiple pages.
-
-In this template, the base state handles the toggle for the sidebar.
-
-As your app grows, we recommend using [substates](https://reflex.dev/docs/state/substates/)
-to organize your state. You can either define substates in their own files, or if the state is
-specific to a page, you can define it in the page file itself.
