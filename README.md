@@ -1,5 +1,9 @@
 # Chapps
 https://devpost.com/software/chapps
+![gallery](https://github.com/ShinnosukeUesaka/chapps/assets/45286939/1e57f5ff-7f52-480f-be01-d6aaf53f690c)
+![gallery (1)](https://github.com/ShinnosukeUesaka/chapps/assets/45286939/dc40c2aa-3b8c-4b2e-98cf-34fe7a14b6c7)
+
+
 
 Create personalized software using our AI toolmaker. Build and edit reusable, shareable tools that contain domain knowledge and fit your needs. No technical skills are required, pure English.
 
